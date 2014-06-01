@@ -67,6 +67,10 @@ class DOMConstants
 	 * used as tagName returns all the child elements
 	 */
 	public static inline var MATCH_ALL_TAG_NAME:String = "*";
+
+	public static inline var ID_ATTRIBUTE_NAME:String = "id";
+	
+	public static inline var CLASS_ATTRIBUTE_NAME:String = "class";
 	
 	//Text const
 	

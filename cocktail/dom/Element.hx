@@ -28,6 +28,22 @@ class Element extends Node
 	 * The name of the element
 	 */
 	public var tagName(default, null):String;
+
+	/**
+	 * get/set a class on the Element.
+	 * An array of class can be given by separating each
+	 * class name by a space
+	 * 
+	 * className is used instead of class for conflict with
+	 * language reserved word
+	 */
+	public var className(get_className, set_className):String;
+
+	/**
+	 * Return the space separated classes
+	 * of the node as an array
+	 */
+	public var classList(default, null):DOMTokenList;
 	
 	/**
 	 * returns a reference to the first child node of that element which is of nodeType Element.
@@ -453,5 +469,213 @@ class Element extends Node
 		}
 		
 		return childElementCount;
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+	// IDL GETTER/SETTER
+	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * Retrieve the id value from the attributes
+	 * map
+	 * @return the id as a string or the empty string
+	 * if it was not set 
+	 */
+	private function get_id():String
+	{
+		return getAttributeAsDOMString(DOMConstants.ID_ATTRIBUTE_NAME);
+	}
+	
+	/**
+	 * update the id value on the attributes map
+	 */
+	private function set_id(value:String):String
+	{
+		setAttribute(DOMConstants.ID_ATTRIBUTE_NAME, value);
+		return value;
+	}
+	
+	/**
+	 * Return the class name value from the attributes
+	 * hash
+	 */
+	private function get_className():String
+	{
+		return getAttributeAsDOMString(DOMConstants.CLASS_ATTRIBUTE_NAME);
+	}
+	
+	/**
+	 * set the class name value on the attributes
+	 * hash, update the classList
+	 */
+	private function set_className(value:String):String
+	{
+		setAttribute(DOMConstants.CLASS_ATTRIBUTE_NAME, value);
+		
+		//update the class list as well
+		classList = value.split(" ");
+		
+		return value;
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+	// IDL GETTER/SETTER HELPERS
+	//////////////////////////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * Return the named attribute's value as a string, or
+	 * the empty string if the attribute does not exist
+	 */
+	private function getAttributeAsDOMString(name:String):String
+	{
+		var attribute:String = getAttribute(name);
+		if (attribute == null)
+		{
+			attribute = "";
+		}
+		return attribute;
+	}
+	
+	/**
+	 * Return the named attribute's value as a string. This is a special
+	 * case for enumerated attribute, which can only take a limited number
+	 * of values
+	 * @param	name
+	 * @param	allowedValues the value allowed for this particular attribute
+	 * @param	missingValueDefault the value to use if the attribute is not set, might be
+	 * null
+	 * @param	invalidValueDefault, the value to use if the attribute doesn't match any of 
+	 * the enumerated values, might be null
+	 * @return	the value of the attribute or the empty string, if no attribute is set and
+	 * there is no missing default values
+	 */
+	private function getEnumeratedAttributeAsDOMString(name:String, allowedValues:Array<String>, missingValueDefault:String, invalidValueDefault:String):String
+	{
+		var attribute:String = getAttribute(name);
+		
+		//attribute is missing
+		if (attribute == null)
+		{
+			if (missingValueDefault != null)
+			{
+				return missingValueDefault;
+			}
+			else
+			{
+				return "";
+			}
+		}
+		
+		var allowedValuesLength:Int = allowedValues.length;
+		for (i in 0...allowedValuesLength)
+		{
+			if (attribute == allowedValues[i])
+			{
+				//attribute has an allowed value
+				return attribute;
+			}
+		}
+		
+		//attribute has not an allowed value
+		//might take invalid or missing default
+		if (invalidValueDefault != null)
+		{
+			return invalidValueDefault;
+		}
+		else if (missingValueDefault != null)
+		{
+			return missingValueDefault;
+		}
+		else
+		{
+			return "";
+		}
+	}
+	
+	/**
+	 * For attribute of type Bool, they are always
+	 * true if any value is specified
+	 */
+	private function getAttributeAsBool(name:String):Bool
+	{
+		if (getAttribute(name) != null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	/**
+	 * When an attribute is set to false, its attribute node
+	 * is removed, else its attribute value is set to the empty
+	 * string
+	 */
+	private function setAttributeAsBool(name:String, value:Bool):Void
+	{
+		var attribute:String = getAttribute(name);
+		if (value == false)
+		{
+			if (attribute != null)
+			{
+				removeAttribute(name);
+			}
+		}
+		else
+		{
+			setAttribute(name, "");
+		}
+	}
+	
+	/**
+	 * If unsigned attribute absent, returns default value or 0
+	 */
+	private function getAttributeAsSignedInteger(name:String, defaultValue:Null<Int>):Int
+	{
+		var attribute:String = getAttribute(name);
+		if (attribute == null)
+		{
+			if (defaultValue != null)
+			{
+				return defaultValue;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		
+		return Std.parseInt(attribute);
+	}
+	
+	/**
+	 * Same as above but returns -1 instead of 0 if missing value and default
+	 */
+	private function getAttributeAsPositiveSignedInteger(name:String, defaultValue:Null<Int>):Int
+	{
+		var attribute:String = getAttribute(name);
+		if (attribute == null)
+		{
+			if (defaultValue != null)
+			{
+				return defaultValue;
+			}
+			else
+			{
+				return -1;
+			}
+		}
+		
+		var valueAsInt:Int = Std.parseInt(attribute);
+		if (valueAsInt < 0)
+		{
+			return -1;
+		}
+		else
+		{
+			return valueAsInt;
+		}
 	}
 }
