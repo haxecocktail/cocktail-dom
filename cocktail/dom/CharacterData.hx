@@ -17,34 +17,34 @@ package cocktail.dom;
  */
 class CharacterData extends Node
 {
-	/**
-	 * The character data of the node that implements this interface. The DOM implementation 
-	 * may not put arbitrary limits on the amount of data that may be stored in a CharacterData node.
-	 * However, implementation limits may mean that the entirety of a node's data may not fit into
-	 * a single DOMString. In such cases, the user may call substringData
-	 * to retrieve the data in appropriately sized pieces
-	 */
-	public var data:String;
-	
-	/**
-	 * class constructor
-	 */
-	public function new() 
-	{
-		super();
-	}
-	
-	//////////////////////////////////////////////////////////////////////////////////////////
-	// OVERRIDEN SETTERS/GETTERS
-	//////////////////////////////////////////////////////////////////////////////////////////
-	
-	override private function get_nodeValue():String 
-	{
-		return data;
-	}
-	
-	override private function set_nodeValue(value:String):String 
-	{
-		return data = value;
-	}
+    /**
+     * The character data of the node that implements this interface. The DOM implementation 
+     * may not put arbitrary limits on the amount of data that may be stored in a CharacterData node.
+     * However, implementation limits may mean that the entirety of a node's data may not fit into
+     * a single DOMString. In such cases, the user may call substringData
+     * to retrieve the data in appropriately sized pieces
+     */
+    public var data:String;
+    
+    /**
+     * class constructor
+     */
+    public function new() 
+    {
+        super();
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // OVERRIDEN SETTERS/GETTERS
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    override private function get_nodeValue():String 
+    {
+        return data;
+    }
+    
+    override private function set_nodeValue(value:String):String 
+    {
+        return data = value;
+    }
 }

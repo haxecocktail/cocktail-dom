@@ -38,26 +38,26 @@ package cocktail.dom;
  * @author Yannick DOMINGUEZ
  */
 class Text extends CharacterData
-{		
-	/**
-	 * class constructor
-	 */
-	public function new() 
-	{
-		super();
-	}
-	
-	//////////////////////////////////////////////////////////////////////////////////////////
-	// OVERRIDEN SETTERS/GETTERS
-	//////////////////////////////////////////////////////////////////////////////////////////
-	
-	override private function get_nodeName():String
-	{
-		return DOMConstants.TEXT_NODE_NAME;
-	}
-	
-	override private function get_nodeType():Int
-	{
-		return DOMConstants.TEXT_NODE;
-	}
+{        
+    /**
+     * class constructor
+     */
+    public function new() 
+    {
+        super();
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // OVERRIDEN SETTERS/GETTERS
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    override private function get_nodeName():String
+    {
+        return DOMConstants.TEXT_NODE_NAME;
+    }
+    
+    override private function get_nodeType():Int
+    {
+        return DOMConstants.TEXT_NODE;
+    }
 }

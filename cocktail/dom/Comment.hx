@@ -27,20 +27,20 @@ package cocktail.dom;
  */
 class Comment extends CharacterData
 {
-	/**
-	 * class constructor
-	 */
-	public function new()
-	{
-		super();
-	}
-	
-	//////////////////////////////////////////////////////////////////////////////////////////
-	// OVERRIDEN GETTER/SETTER
-	//////////////////////////////////////////////////////////////////////////////////////////
-	
-	override private function get_nodeType():Int
-	{
-		return DOMConstants.COMMENT_NODE;
-	}
+    /**
+     * class constructor
+     */
+    public function new()
+    {
+        super();
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // OVERRIDEN GETTER/SETTER
+    //////////////////////////////////////////////////////////////////////////////////////////
+    
+    override private function get_nodeType():Int
+    {
+        return DOMConstants.COMMENT_NODE;
+    }
 }
