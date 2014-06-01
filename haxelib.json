@@ -1,0 +1,8 @@
+{
+    "name": "cocktail-dom",
+    "url": "https://github.com/haxecocktail/cocktail-dom",
+    "licence": "MIT",
+    "version": "0.0.1",
+    "description": "Implementation of the w3c DOM spec",
+    "contributors": ["Yannick Dominguez"]
+}

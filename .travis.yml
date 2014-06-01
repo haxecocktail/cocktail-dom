@@ -1,0 +1,18 @@
+language: php
+
+before_script:
+  - sudo apt-get update
+  - sudo apt-get install python-software-properties -y
+  - sudo add-apt-repository ppa:eyecreate/haxe -y
+  - sudo apt-get update
+  - sudo apt-get install haxe -y
+  - sudo apt-get install gcc-multilib g++-multilib -y
+  - mkdir ~/haxelib
+  - haxelib setup ~/haxelib
+  - haxelib install hxcpp
+  - haxelib install munit
+  - mkdir build
+  - mkdir report
+
+script:
+  - haxelib run munit test -neko -cpp
