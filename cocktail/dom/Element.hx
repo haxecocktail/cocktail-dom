@@ -30,6 +30,15 @@ class Element extends Node
 	public var tagName(default, null):String;
 
 	/**
+	 * This attribute assigns an id to an element. 
+	 * This id must be unique in a document.
+	 * 
+	 * get/set the id attribute from the attributes
+	 * map
+	 */
+	public var id(get_id, set_id):String;
+
+	/**
 	 * get/set a class on the Element.
 	 * An array of class can be given by separating each
 	 * class name by a space
@@ -44,6 +53,12 @@ class Element extends Node
 	 * of the node as an array
 	 */
 	public var classList(default, null):DOMTokenList;
+
+    /**
+     * returns a reference to the parent of nodeType Element of the Element.
+     * It returns null if the parent is not of type Element.
+     */
+    public var parentElement(get_parentElement, never):Element;
 	
 	/**
 	 * returns a reference to the first child node of that element which is of nodeType Element.
@@ -359,6 +374,16 @@ class Element extends Node
 	// ELEMENT TRAVERSAL GETTERS
 	//////////////////////////////////////////////////////////////////////////////////////////
 	
+    private function get_parentElement():Element
+    {
+        if (parentNode.nodeType == DOMConstants.ELEMENT_NODE) 
+        {
+            return cast(parentNode);
+        }
+
+        return null;
+    }
+
 	private function get_firstElementChild():Element
 	{
 		if (hasChildNodes() == false)
