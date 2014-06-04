@@ -1,2 +1,10 @@
-build
+*.sublime-project
+*.sublime-workspace
+*.DS_Store
+Thumbs.db
 report
+cpp_test
+*.swf
+*.js
+*.js.map
+*.n

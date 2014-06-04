@@ -1,0 +1,6 @@
+version=2.1.0
+src=..
+bin=.
+report=report
+hxml=build.hxml
+classPaths=../../cocktail

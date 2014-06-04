@@ -1,4 +1,4 @@
-package;
+package unit;
 
 import cocktail.dom.Attr;
 import cocktail.dom.CharacterData;
