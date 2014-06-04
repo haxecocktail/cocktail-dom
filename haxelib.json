@@ -4,5 +4,5 @@
     "licence": "MIT",
     "version": "0.0.1",
     "description": "Implementation of the w3c DOM spec",
-    "contributors": ["Yannick Dominguez"]
+    "contributors": ["Yannick Dominguez", "Thomas Fétiveau"]
 }
