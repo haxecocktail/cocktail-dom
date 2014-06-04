@@ -1,11 +1,14 @@
-/*
+/**
+ * Cocktail DOM Implementation
+ * @see https://github.com/haxecocktail/cocktail-dom
+ * 
  * Cocktail, HTML rendering engine
- * http://haxe.org/com/libs/cocktail
+ * @see http://haxe.org/com/libs/cocktail
  *
- * Copyright (c) Silex Labs
+ * Copyright (c) Silex Labs 2013 - 2014
  * Cocktail is available under the MIT license
- * http://www.silexlabs.org/labs/cocktail-licensing/
-*/
+ * @see http://www.silexlabs.org/labs/cocktail-licensing/
+ */
 package cocktail.dom;
 
 /**
@@ -19,8 +22,6 @@ package cocktail.dom;
  * representing the attribute value. On the other hand, in HTML, where all attributes 
  * have simple string values, methods to directly access an attribute value can
  * safely be used as a convenience.
- * 
- * @author Yannick DOMINGUEZ
  */
 class Element extends Node
 {    

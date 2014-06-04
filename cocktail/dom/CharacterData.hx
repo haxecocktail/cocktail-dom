@@ -15,8 +15,6 @@ package cocktail.dom;
  * The CharacterData interface extends Node with a set of attributes and methods for accessing character data in the DOM.
  * For clarity this set is defined here rather than on each object that uses these attributes and methods.
  * No DOM objects correspond directly to CharacterData, though Text and others do inherit the interface from it.
- * 
- * @author Yannick DOMINGUEZ
  */
 class CharacterData extends Node
 {

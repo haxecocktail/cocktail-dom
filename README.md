@@ -1,6 +1,6 @@
 ##Cocktail DOM
 
-Cross platform Implementation of the w3c DOM specification.
+Cross platform Implementation of the [w3c DOM specifications](http://www.w3.org/TR/dom/).
 
 ###General information
 

@@ -1,16 +1,18 @@
-/*
+/**
+ * Cocktail DOM Implementation
+ * @see https://github.com/haxecocktail/cocktail-dom
+ * 
  * Cocktail, HTML rendering engine
- * http://haxe.org/com/libs/cocktail
+ * @see http://haxe.org/com/libs/cocktail
  *
- * Copyright (c) Silex Labs
+ * Copyright (c) Silex Labs 2013 - 2014
  * Cocktail is available under the MIT license
- * http://www.silexlabs.org/labs/cocktail-licensing/
-*/
+ * @see http://www.silexlabs.org/labs/cocktail-licensing/
+ */
 package cocktail.dom;
 
 /**
  * Lists constants for DOM nodes
- * @author Yannick DOMINGUEZ
  */
 class DOMConstants 
 {

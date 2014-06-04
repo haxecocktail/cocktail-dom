@@ -1,11 +1,14 @@
-/*
+/**
+ * Cocktail DOM Implementation
+ * @see https://github.com/haxecocktail/cocktail-dom
+ * 
  * Cocktail, HTML rendering engine
- * http://haxe.org/com/libs/cocktail
+ * @see http://haxe.org/com/libs/cocktail
  *
- * Copyright (c) Silex Labs
+ * Copyright (c) Silex Labs 2013 - 2014
  * Cocktail is available under the MIT license
- * http://www.silexlabs.org/labs/cocktail-licensing/
-*/
+ * @see http://www.silexlabs.org/labs/cocktail-licensing/
+ */
 package cocktail.dom;
 
 import cocktail.event.EventTarget;
@@ -23,9 +26,7 @@ import cocktail.event.EventTarget;
  * information without casting down to the specific derived interface.
  * In cases where there is no obvious mapping of these attributes for a specific nodeType
  * (e.g., nodeValue for an Element or attributes for a Comment), this returns null.
- * Note that the specialized interfaces may contain additional and more convenient mechanisms to get and set the relevant information. 
- * 
- * @author Yannick DOMINGUEZ
+ * Note that the specialized interfaces may contain additional and more convenient mechanisms to get and set the relevant information.
  */
 class Node extends EventTarget
 {    
