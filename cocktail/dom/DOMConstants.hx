@@ -14,33 +14,18 @@ package cocktail.dom;
 /**
  * Lists constants for DOM nodes
  */
-class DOMConstants 
-{
-    //node types
-    
-    public static inline var ELEMENT_NODE:Int = 1;
-    
-    public static inline var ATTRIBUTE_NODE:Int = 2;
-    
-    public static inline var TEXT_NODE:Int = 3;
-    
-    public static inline var CDATA_SECTION_NODE:Int = 4;
-    
-    public static inline var ENTITY_REFERENCE_NODE:Int = 5;
-    
-    public static inline var ENTITY_NODE:Int = 6;
-    
-    public static inline var PROCESSING_INSTRUCTION_NODE:Int = 7;
-    
-    public static inline var COMMENT_NODE:Int = 8;
-    
-    public static inline var DOCUMENT_NODE:Int = 9;
+class DOMConstants {
 
-    public static inline var DOCUMENT_TYPE_NODE:Int = 10;
-    
-    public static inline var DOCUMENT_FRAGMENT_NODE:Int = 11;
+    ///
+    // NAMESPACES
+    //
 
-    public static inline var NOTATION_NODE:Int = 11;
+    public static inline var HTML_NAMESPACE : String = "http://www.w3.org/1999/xhtml";
+
+    public static inline var XML_NAMESPACE : String = "http://www.w3.org/XML/1998/namespace";
+
+    public static inline var XMLNS_NAMESPACE : String = "http://www.w3.org/2000/xmlns/";
+
     
     //Document event interfaces
 
@@ -68,19 +53,13 @@ class DOMConstants
      * When using getElementsByTagName, this value
      * used as tagName returns all the child elements
      */
-    public static inline var MATCH_ALL_TAG_NAME:String = "*";
+    public static inline var MATCH_ALL_TAG_NAME : String = "*";
 
-    public static inline var ID_ATTRIBUTE_NAME:String = "id";
+    public static inline var ID_ATTRIBUTE_NAME : String = "id";
     
-    public static inline var CLASS_ATTRIBUTE_NAME:String = "class";
+    public static inline var CLASS_ATTRIBUTE_NAME : String = "class";
     
     //Text const
     
-    public static inline var TEXT_NODE_NAME:String = "#text";
-    
-    private function new() 
-    {
-        
-    }
-    
+    public static inline var TEXT_NODE_NAME : String = "#text";
 }

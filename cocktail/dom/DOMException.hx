@@ -22,107 +22,113 @@ package cocktail.dom;
 class DOMException 
 {
     /**
-     * If index or size is negative, or greater than the allowed value.
+     * The index is not in the allowed range.
      */
-    public static inline var INDEX_SIZE_ERR:Int = 1;
-    
+    static public inline var INDEX_SIZE_ERR : Int = 1;
     /**
-     * If the specified range of text does not fit into a DOMString.
+     * historical
      */
-    public static inline var DOMSTRING_SIZE_ERR:Int = 2;
-    
+    static public inline var DOMSTRING_SIZE_ERR : Int = 2;
     /**
-     * If any Node is inserted somewhere it doesn't belong.
+     * The operation would yield an incorrect node tree.
      */
-    public static inline var HIERARCHY_REQUEST_ERR:Int = 3;
-    
+    static public inline var HIERARCHY_REQUEST_ERR : Int = 3;
     /**
-     * If a Node is used in a different document than
-     * the one that created it (that doesn't support it).
+     * The object is in the wrong document.
      */
-    public static inline var WRONG_DOCUMENT_ERR:Int = 4;
-    
+    static public inline var WRONG_DOCUMENT_ERR : Int = 4;
     /**
-     * If an invalid or illegal character is specified, such as in an XML name.
+     * The string contains invalid characters.
      */
-    public static inline var INVALID_CHARACTER_ERR:Int = 5;
-    
+    static public inline var INVALID_CHARACTER_ERR : Int = 5;
     /**
-     * If data is specified for a Node which does not support data.
+     * historical
      */
-    public static inline var NO_DATA_ALLOWED_ERR:Int = 6;
-    
+    static public inline var NO_DATA_ALLOWED_ERR : Int = 6;
     /**
-     * If an attempt is made to modify an object where modifications are not allowed.
+     * The object can not be modified.
      */
-    public static inline var NO_MODIFICATION_ALLOWED_ERR:Int = 7;
-    
+    static public inline var NO_MODIFICATION_ALLOWED_ERR : Int = 7;
     /**
-     * If an attempt is made to reference a Node in a context where it does not exist.
+     * The object can not be found here.
      */
-    public static inline var NOT_FOUND_ERR:Int = 8;
-    
+    static public inline var NOT_FOUND_ERR : Int = 8;
     /**
-     * If the implementation does not support the requested type of object or operation.
+     * The operation is not supported.
      */
-    public static inline var NOT_SUPPORTED_ERR:Int = 9;
-    
+    static public inline var NOT_SUPPORTED_ERR : Int = 9;
     /**
-     * If an attempt is made to add an attribute that is already in use elsewhere.
+     * historical
      */
-    public static inline var INUSE_ATTRIBUTE_ERR:Int = 10;
-    
+    static public inline var INUSE_ATTRIBUTE_ERR : Int = 10;
     /**
-     * If an attempt is made to use an object that is not, or is no longer, usable.
+     * The object is in an invalid state.
      */
-    public static inline var INVALID_STATE_ERR:Int = 11;
-    
+    static public inline var INVALID_STATE_ERR : Int = 11;
     /**
-     * If an invalid or illegal string is specified.
+     * The string did not match the expected pattern.
      */
-    public static inline var SYNTAX_ERR:Int = 12;
-    
+    static public inline var SYNTAX_ERR : Int = 12;
     /**
-     * If an attempt is made to modify the type of the underlying object.
+     * The object can not be modified in this way.
      */
-    public static inline var INVALID_MODIFICATION_ERR:Int = 13;
-    
+    static public inline var INVALID_MODIFICATION_ERR : Int = 13;
     /**
-     * If an attempt is made to create or change an object in a way which is 
-     * incorrect with regard to namespaces.
+     * The operation is not allowed by Namespaces in XML. [XMLNS](http://www.w3.org/TR/2014/CR-dom-20140508/#refsXMLNS)
      */
-    public static inline var NAMESPACE_ERR:Int = 14;
-    
+    static public inline var NAMESPACE_ERR : Int = 14;
     /**
-     * If a parameter or an operation is not supported by the underlying object.
+     * The object does not support the operation or argument.
      */
-    public static inline var INVALID_ACCESS_ERR:Int = 15;
-    
+    static public inline var INVALID_ACCESS_ERR : Int = 15;
     /**
-     * If a call to a method such as insertBefore or removeChild would make the Node
-     * invalid with respect to "partial validity",
-     * this exception would be raised and the operation would not be done.
+     * historical
      */
-    public static inline var VALIDATION_ERR:Int = 16;
-    
+    static public inline var VALIDATION_ERR : Int = 16;
+    /**
+     * historical; use JavaScript's TypeError instead
+     */
+    static public inline var TYPE_MISMATCH_ERR : Int = 17;
     /**
      * The operation is insecure.
      */
-    public static inline var SECURITY_ERR:Int = 18;
-    
+    static public inline var SECURITY_ERR : Int = 18;
     /**
-     * If the type of an object is incompatible with the expected type of the parameter associated to the object. 
+     * A network error occurred.
      */
-    public static inline var TYPE_MISMATCH_ERR:Int = 19;
-    
+    static public inline var NETWORK_ERR : Int = 19;
     /**
-     * class constructor. Private as only
-     * static exception code are meant
-     * to be used on this class
+     * The operation was aborted.
      */
-    private function new() 
-    {
-        
+    static public inline var ABORT_ERR : Int = 20;
+    /**
+     * The given URL does not match another URL.
+     */
+    static public inline var URL_MISMATCH_ERR : Int = 21;
+    /**
+     * The quota has been exceeded.
+     */
+    static public inline var QUOTA_EXCEEDED_ERR : Int = 22;
+    /**
+     * The operation timed out.
+     */
+    static public inline var TIMEOUT_ERR : Int = 23;
+    /**
+     * The supplied node is incorrect or has an incorrect ancestor for this operation.  
+     */
+    static public inline var INVALID_NODE_TYPE_ERR : Int = 24;
+    /**
+     * The object can not be cloned.
+     */
+    static public inline var DATA_CLONE_ERR : Int = 25;
+
+    public function new(code : Int) {
+
+        this.code = code;
     }
-    
+
+    /**
+     * The code exception field must return the value it was initialized to.
+     */
+    public var code (default, null) : Int;
 }

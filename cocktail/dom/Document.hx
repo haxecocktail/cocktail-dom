@@ -22,25 +22,249 @@ import cocktail.event.WheelEvent;
 import cocktail.event.PopStateEvent;
 
 /**
- * The Document interface represents the entire HTML or XML document.
- * Conceptually, it is the root of the document tree, and provides the
- * primary access to the document's data. Since elements, text nodes,
- * comments, processing instructions, etc. cannot exist outside the
- * context of a Document, the Document interface also contains the
- * factory methods needed to create these objects. The Node objects 
- * created have a ownerDocument attribute which associates them with
- * the Document within whose context they were created.
+ * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-document
  */
-class Document extends Node
-{    
-    /**
-     * class constructor
-     */
-    public function new() 
-    {
+class Document extends Node {
+
+    public function new() {
+
         super();
+
+        this.implementation = new DOMImplementation();
     }
-    
+
+    /**
+     * [SameObject]
+     * readonly
+     */
+    public var implementation (default, null) : DOMImplementation;
+    /**
+     * readonly
+     */
+    public var URL (get, null) : String;
+    /**
+     * readonly
+     */
+    public var documentURI (get, null) : String;
+    /**
+     * readonly
+     */
+    public var origin (get, null) : String;
+    /**
+     * readonly
+     */
+    public var compatMode (get, null) : String;
+    /**
+     * readonly
+     */
+    public var characterSet (get, null) : String;
+    /**
+     * readonly
+     */
+    public var contentType (get, null) : String;
+    /**
+     * readonly
+     */
+    public var doctype (get, null) : Null<DocumentType>;
+    /**
+     * readonly
+     */
+    public var documentElement (get, null) : Null<Element>;
+
+
+
+    public function getElementsByTagName(localName : String) : HTMLCollection {
+
+        return DOMTools.listOfElementsWithLocalName(localName, this);
+    }
+
+    public function getElementsByTagNameNS(namespace : Null<String>, localName : String) : HTMLCollection {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return null;
+    }
+
+    public function getElementsByClassName(classNames : String) : HTMLCollection {
+
+        return DOMTools.listOfElementWithClassNames(classNames, this);
+    }
+
+    /**
+     * [NewObject]
+     */
+    public function createElement(localName : String) : Element {
+
+        // TODO check Name Production http://www.w3.org/TR/xml/#NT-Name
+        if (localName == null) {
+
+            throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
+        }
+    }
+    /**
+     * [NewObject]
+     */
+    public function createElementNS(? namespace : Null<String>, qualifiedName : String) : Element {
+    #if strict
+        throw "Not implemented!";
+    #end
+    }
+    /**
+     * [NewObject]
+     */
+    public function createDocumentFragment() : DocumentFragment {
+
+        var df : DocumentFragment = new DocumentFragment();
+        
+        return DOMTools.adopt(df, this);
+    }
+    /**
+     * [NewObject]
+     */
+    public function createTextNode(data : String) : Text {
+
+        var tn : Text = new Text();
+        
+        tn.data = data;
+
+        return DOMTools.adopt(tn, this);
+    }
+    /**
+     * [NewObject]
+     */
+    public function createComment(data : String) : Comment {
+
+        var c : Comment = new Comment();
+
+        c.data = data;
+
+        return DOMTools.adopt(c, this);
+    }
+    /**
+     * [NewObject]
+     */
+    public function createProcessingInstruction(target : String, data : String) : ProcessingInstruction {
+    #if strict
+        throw "Not implemented!";
+    #end
+    }
+
+    public function importNode(node : Node, ? deep : Bool = false) : Node {
+
+        if (node.nodeType == Node.DOCUMENT_NODE) {
+
+            throw new DOMException(DOMException.NOT_SUPPORTED_ERR);
+        }
+        return DOMTools.clone(node, this, true);
+    }
+    public function adoptNode(node : Node) : Node {
+
+        if (node.nodeType == Node.DOCUMENT_NODE) {
+
+            throw new DOMException(DOMException.NOT_SUPPORTED_ERR);
+        }
+        return DOMTools.adopt(node, this);
+    }
+
+    /**
+     * [NewObject]
+     */
+    public function createEvent(interface : String) : Event {
+        // TODO http://www.w3.org/TR/2014/CR-dom-20140508/#dom-document-createevent
+        // should this be in cocktail-dom-event or here ?
+    #if strict
+        throw "Not implemented!";
+    #end
+    }
+
+    /**
+     * [NewObject]
+     */
+    public function createRange() : Range {
+    #if strict
+        throw "Not implemented!";
+    #end
+    }
+
+    /**
+     * [NewObject]
+     * NodeFilter.SHOW_ALL = 0xFFFFFFFF
+     */
+    public function createNodeIterator(root : Node, ? whatToShow : Int = 0xFFFFFFFF, ? filter : Null<NodeFilter>) : NodeIterator {
+    #if strict
+        throw "Not implemented!";
+    #end
+    }
+    /**
+     * [NewObject]
+     * NodeFilter.SHOW_ALL = 0xFFFFFFFF
+     */
+    public function createTreeWalker(root : Node, ? whatToShow : Int = 0xFFFFFFFF, ? filter : Null<NodeFilter>) : TreeWalker {
+    #if strict
+        throw "Not implemented!";
+    #end
+    }
+
+    ///
+    // GETTER / SETTER
+    //
+
+    private function get_URL() : String {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return "";
+    }
+    private function get_documentURI() : String {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return "";
+    }
+    private function get_origin() : String {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return "";
+    }
+    private function get_compatMode() : String {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return "";
+    }
+    private function get_characterSet() : String {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return "";
+    }
+    private function get_contentType() : String {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return "";
+    }
+    private function get_doctype() : Null<DocumentType> {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return null;
+    }
+    private function get_documentElement() : Null<Element> {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return null;
+    }
+
+
+
+
+
+
+
+
     //////////////////////////////////////////////////////////////////////////////////////////
     // PUBLIC METHODS
     //////////////////////////////////////////////////////////////////////////////////////////

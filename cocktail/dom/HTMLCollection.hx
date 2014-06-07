@@ -12,21 +12,28 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#nodelist
+ * @see http://www.w3.org/TR/2014/CR-dom-20140508/#htmlcollection
  */
-abstract NodeList(Array<Node>) {
+abstract HTMLCollection(Array<Element>) {
 
-    inline public function new(a : Array<Node>) {
+    inline public function new(a : Array<Element>) {
 
         this = a;
     }
 
-    inline public function item(index : Int) : Null<Node> {
+    inline public function item(index : Int) : Null<Element> {
 
     	if (index < 0 || index >= this.length) {
 
     		return null;
     	}
     	return this[index];
+    }
+
+    inline public function namedItem(key : String) : Null<Element> {
+    #if strict
+        throw "Not implemented!";
+    #end
+    	return null;
     }
 }

@@ -12,14 +12,6 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-comment
+ * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-documentfragment
  */
-class Comment extends CharacterData {        
-
-    public function new(? data : String = "") {
-
-        super();
-
-        this.data = data;
-    }
-}
+class DocumentFragment extends Node { }

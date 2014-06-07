@@ -12,125 +12,52 @@
 package cocktail.dom;
 
 /**
- * the Attr interface represents an attribute in an Element object
+ * @see http://www.w3.org/TR/2014/CR-dom-20140508/#attr
  */
-class Attr extends Node
-{
-    /**
-     * Returns the name of this attribute.
-     * If Node.localName is different from null,
-     * this attribute is a qualified name.
-     */
-    public var name(default, null):String;
-    
-    /**
-     * On retrieval, the value of the attribute is returned as a string.
-     * Character and general entity references are replaced with their values.
-     * On setting, this creates a Text node with the unparsed contents
-     * of the string, i.e. any characters
-     * that an XML processor would recognize as markup
-     * are instead treated as literal text.
-     */
-    @:isVar public var value(get_value, set_value):String;
-    
-    /**
-     * True if this attribute was explicitly given a value in the instance document,
-     * false otherwise. If the application changed the value of this attribute
-     * node (even if it ends up having the same value as the default value)
-     * then it is set to true.
-     */
-    public var specified(default, null):Bool;
-    
-    /**
-     * Returns whether this attribute is known to be of type ID
-     * (i.e. to contain an identifier for its owner element)
-     * or not. When it is and its value is unique,
-     * the ownerElement of this attribute
-     * can be retrieved using the method Document.getElementById
-     */
-    public var isId:Bool;
-    
-    /**
-     * The Element node this attribute is attached 
-     * to or null if this attribute is not in use.
-     */
-    public var ownerElement:Element;
-    
-    /**
-     * class constructor
-     */
-    public function new(name:String) 
-    {
-        this.name = name;
-        specified = false;
-        super();
+class Attr {
+
+    public function new(localName : String, value : String, ? name : Null<String>, 
+        ? namespaceURI : Null<String>, ? prefix : Null<String>) {
+
+        this.localName = localName;
+        this.value = value;
+        this.name = name != null ? name : localName;
+        this.namespaceURI = namespaceURI;
+        this.prefix = prefix;
     }
-    
+
     /**
-     * attribute nodes can't have children
+     * readonly 
      */
-    override private function initChildNodes():Void
-    {
-        
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // OVERRIDEN PRIVATE METHODS
-    //////////////////////////////////////////////////////////////////////////////////////////
-    
+    public var localName (default, null) : String;
+            
+    public var value (default, default) : String;
     /**
-     * Overriden as attr node clone its own attributes
+     * readonly 
      */
-    override private function doCloneNode():Attr
-    {
-        var clonedAttr:Attr = new Attr(this.name);
-        clonedAttr.specified = this.specified;
-        clonedAttr.isId = this.isId;
-        clonedAttr.value = this.value;
-        
-        return clonedAttr;
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // OVERRIDEN SETTERS/GETTERS
-    //////////////////////////////////////////////////////////////////////////////////////////
-    
-    override private function get_nodeName():String
-    {
-        return name;
-    }
-    
-    override private function get_nodeType():Int
-    {
-        return DOMConstants.ATTRIBUTE_NODE;
-    }
-    
-    override private function get_nodeValue():String 
-    {
-        return value;
-    }
-    
-    override private function set_nodeValue(value:String):String 
-    {
-        return this.value = value;
-    }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // SETTERS/GETTERS
-    //////////////////////////////////////////////////////////////////////////////////////////
-    
-    private function get_value():String 
-    {
-        if (value == null)
-        {
-            return "";
-        }
-        return value;
-    }
-    
-    private function set_value(value:String):String 
-    {
-        specified = true;
-        return this.value = value;
+    public var name (default, null) : String;
+    /**
+     * readonly 
+     */
+    public var namespaceURI (default, null) : Null<String>;
+    /**
+     * readonly 
+     */
+    public var prefix (default, null) : Null<String>;
+
+    /**
+     * useless; always returns true
+     * readonly
+     */
+    public var specified (get, never) : Bool;
+
+
+    ///
+    // GETTER / SETTER
+    //
+
+    private function get_specified() : Bool {
+
+        return true;
     }
 }

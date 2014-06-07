@@ -12,40 +12,60 @@
 package cocktail.dom;
 
 /**
- * The CharacterData interface extends Node with a set of attributes and methods for accessing character data in the DOM.
- * For clarity this set is defined here rather than on each object that uses these attributes and methods.
- * No DOM objects correspond directly to CharacterData, though Text and others do inherit the interface from it.
+ * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-characterdata
+ * Note: CharacterData is an abstract interface and does not exist as node. 
+ * It is used by Text, Comment, and ProcessingInstruction nodes.
  */
-class CharacterData extends Node
-{
+class CharacterData extends Node {
+
     /**
-     * The character data of the node that implements this interface. The DOM implementation 
-     * may not put arbitrary limits on the amount of data that may be stored in a CharacterData node.
-     * However, implementation limits may mean that the entirety of a node's data may not fit into
-     * a single DOMString. In such cases, the user may call substringData
-     * to retrieve the data in appropriately sized pieces
+     * [TreatNullAs=EmptyString]
      */
-    public var data:String;
-    
+    public var data (default, set) : String;
+
     /**
-     * class constructor
+     * readonly
      */
-    public function new() 
-    {
-        super();
+    public var length (default, never) : Int;
+
+    public function substringData(offset : Int, count : Int) : String {
+
+        return DOMTools.substringData(this, offset, count);
     }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // OVERRIDEN SETTERS/GETTERS
-    //////////////////////////////////////////////////////////////////////////////////////////
-    
-    override private function get_nodeValue():String 
-    {
+
+    public function appendData(data : String) : Void {
+
+        DOMTools.replaceData(this, length, 0, data);
+    }
+
+    public function insertData(offset : Int, data : String) : Void {
+
+        DOMTools.replaceData(this, offset, 0, data);
+    }
+
+    public function deleteData(offset : Int, count : Int) : Void {
+
+        DOMTools.replaceData(this, offset, count, "");
+    }
+
+    public function replaceData(offset : Int, count : Int, data : String) : Void {
+
+        DOMTools.replaceData(this, offset, count, data);
+    }
+
+    ///
+    // GETTER / SETTER
+    //
+
+    private function set_data(v : String) : String {
+
+        DOMTools.replaceData(this, 0, length, v);
+
         return data;
     }
-    
-    override private function set_nodeValue(value:String):String 
-    {
-        return data = value;
+
+    private function get_length() : Int {
+
+        return data.length;
     }
 }

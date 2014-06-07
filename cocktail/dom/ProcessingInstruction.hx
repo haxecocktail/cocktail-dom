@@ -12,14 +12,17 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-comment
+ * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-processinginstruction
  */
-class Comment extends CharacterData {        
+class ProcessingInstruction extends CharacterData {        
 
-    public function new(? data : String = "") {
+    public function new() {
 
         super();
-
-        this.data = data;
     }
+
+    /**
+     * readonly
+     */
+    public var target (default, null) : String;
 }
