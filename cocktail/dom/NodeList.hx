@@ -14,13 +14,15 @@ package cocktail.dom;
 /**
  * @see http://www.w3.org/TR/2014/CR-dom-20140508/#nodelist
  */
-abstract NodeList(Array<Node>) {
+@:forward(iterator, length, remove, copy, push, indexOf, lastIndexOf, insert)
+abstract NodeList(Array<Node>) from Array<Node> to Array<Node> {
 
-    inline public function new(a : Array<Node>) {
+    inline public function new(? a : Null<Array<Node>>) {
 
-        this = a;
+        this = a != null ? a : [];
     }
 
+    @:arrayAccess
     inline public function item(index : Int) : Null<Node> {
 
     	if (index < 0 || index >= this.length) {

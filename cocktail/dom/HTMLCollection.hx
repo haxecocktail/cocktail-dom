@@ -14,11 +14,12 @@ package cocktail.dom;
 /**
  * @see http://www.w3.org/TR/2014/CR-dom-20140508/#htmlcollection
  */
-abstract HTMLCollection(Array<Element>) {
+@:forward(iterator, length, remove, copy, push, indexOf, lastIndexOf, insert, concat)
+abstract HTMLCollection(Array<Element>) from Array<Element> to Array<Element> {
 
-    inline public function new(a : Array<Element>) {
+    inline public function new(? values : Null<Array<Element>>) {
 
-        this = a;
+        this = values != null ? values : [];
     }
 
     inline public function item(index : Int) : Null<Element> {

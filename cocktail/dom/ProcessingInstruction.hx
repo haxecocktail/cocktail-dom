@@ -16,13 +16,40 @@ package cocktail.dom;
  */
 class ProcessingInstruction extends CharacterData {        
 
-    public function new() {
+    public function new(? data : String = "", target : String) {
 
         super();
+
+        this.data = data;
+        this.target = target;
     }
 
     /**
      * readonly
      */
     public var target (default, null) : String;
+
+    ///
+    // GETTER / SETTER
+    //
+
+    override private function get_nodeType() : Int {
+
+        return Node.PROCESSING_INSTRUCTION_NODE;
+    }
+    override private function get_nodeName() : String {
+
+        return target;
+    }
+
+    ///
+    // INTERNALS
+    //
+
+    override private function doCloneNode() : Node {
+
+        var clone : ProcessingInstruction = new ProcessingInstruction(this.data, this.target);
+
+        return clone;
+    }
 }

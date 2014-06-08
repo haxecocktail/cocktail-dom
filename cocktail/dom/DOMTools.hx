@@ -14,6 +14,7 @@ package cocktail.dom;
 /**
  * @see http://www.w3.org/TR/dom/#mutation-algorithms
  */
+@:access(cocktail.dom)
 class DOMTools {
 
 	/**
@@ -25,54 +26,22 @@ class DOMTools {
 
 			document = node.ownerDocument;
 		}
-		var copy : Node = doCloneNode();
+		var copy : Node = node.doCloneNode();
 
 		if (copy.nodeType == Node.DOCUMENT_NODE) {
 
-			adopt(copy, copy);
-			document = copy;
+			adopt(copy, Std.instance(copy, Document));
+			document = Std.instance(copy, Document);
 		
 		} else {
 
 			adopt(copy, document);
 		}
-		switch (node.nodeType) {
 
-			case Node.DOCUMENT_NODE:
-				// Its encoding, content type, URL, its mode (quirks mode, limited quirks mode, 
-				// or no-quirks mode), and its type (XML document or HTML document).
-            #if strict
-                throw "Not implemented!";
-            #end
-
-			case Node.DOCUMENT_TYPE_NODE:
-				// Its name, public ID, and system ID.
-            #if strict
-                throw "Not implemented!";
-            #end
-
-			case ELEMENT_NODE:
-				// Its namespace, namespace prefix, local name, and its attribute list.
-            #if strict
-                throw "Not implemented!";
-            #end
-
-			case TEXT_NODE, COMMENT_NODE:
-				// Its data
-            #if strict
-                throw "Not implemented!";
-            #end
-
-			case PROCESSING_INSTRUCTION_NODE:
-				// Its target and data
-            #if strict
-                throw "Not implemented!";
-            #end
-
-			default: // -
-		}
-		// Run any cloning steps defined for node in other applicable specifications and pass 
-		// copy, node, document and the clone children flag if set, as parameters.
+		// TODO, check: Run any cloning steps defined for node in other applicable 
+		// specifications and pass copy, node, document and the clone children flag 
+		// if set, as parameters.
+		// ie : override doCloneNode() in any HTML element that would require it
 
         if (cloneChildren) {
 
@@ -94,7 +63,7 @@ class DOMTools {
 			parent.nodeType != Node.DOCUMENT_FRAGMENT_NODE &&
 			parent.nodeType != Node.ELEMENT_NODE) {
 	
-			throw "HierarchyRequestError";
+			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 		}
 
 		// TODO If node is a host-including inclusive ancestor of parent, throw a "HierarchyRequestError".
@@ -103,7 +72,7 @@ class DOMTools {
 		// If child's parent is not parent, throw a "NotFoundError" exception.
 		if (child.parentNode != parent) {
 
-			throw "NotFoundError";
+			throw new DOMException(DOMException.NOT_FOUND_ERR);
 		}
 
 		// If node is not a DocumentFragment, DocumentType, Element, Text, ProcessingInstruction, or Comment node, 
@@ -115,7 +84,7 @@ class DOMTools {
 			node.nodeType != Node.PROCESSING_INSTRUCTION_NODE &&
 			node.nodeType != Node.COMMENT_NODE) {
 
-			throw "HierarchyRequestError";
+			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 		}
 
 		// If either node is a Text node and parent is a document, or node is a doctype and parent is not a document, 
@@ -123,7 +92,7 @@ class DOMTools {
 		if (node.nodeType == Node.TEXT_NODE && parent.nodeType == Node.DOCUMENT_NODE || 
 			node.nodeType == Node.DOCUMENT_TYPE_NODE && parent.nodeType != Node.DOCUMENT_NODE) {
 
-			throw "HierarchyRequestError";
+			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 		}
 
 		// If parent is a document, and any of the statements below, switched on node, are true, 
@@ -136,7 +105,7 @@ class DOMTools {
 				if (node.childNodes.length > 1 || 
 					node.childNodes.length == 1 && node.childNodes[0].nodeType == Node.TEXT_NODE) {
 
-					throw "HierarchyRequestError";
+					throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 				}
 				// Otherwise, if node has one element child and either parent has an element child 
 				// that is not child or a doctype is following child.
@@ -145,7 +114,7 @@ class DOMTools {
 					if (parent.childNodes.length == 1 && parent.childNodes[0] != child ||
 						child.nextSibling != null && child.nextSibling.nodeType == Node.DOCUMENT_TYPE_NODE) {
 						
-						throw "HierarchyRequestError";
+						throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 					}
 				}
 			}
@@ -154,7 +123,7 @@ class DOMTools {
 				if (parent.childNodes.length == 1 && parent.childNodes[0] != child ||
 					child.nextSibling != null && child.nextSibling.nodeType == Node.DOCUMENT_TYPE_NODE){
 
-					throw "HierarchyRequestError";
+					throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 				}
 			}
 			if (node.nodeType == Node.DOCUMENT_TYPE_NODE) {
@@ -163,7 +132,7 @@ class DOMTools {
 					parent.childNodes[0].nodeType == Node.DOCUMENT_TYPE_NODE ||
 					child.previousSibling != null && child.previousSibling.nodeType == Node.ELEMENT_NODE) {
 
-					throw "HierarchyRequestError";
+					throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 				}
 			}
 		}
@@ -286,51 +255,51 @@ class DOMTools {
 	{
 		if ( parent.nodeType != Node.DOCUMENT_NODE && parent.nodeType != Node.DOCUMENT_FRAGMENT_NODE && parent.nodeType != Node.ELEMENT_NODE  )
 		{
-			throw "HierarchyRequestError";
+			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 		}
 		if ( isIncluseAncestor( node, parent ) )
 		{
-			throw "HierarchyRequestError";
+			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 		}
 		if ( child != null && child.parentNode != parent )
 		{
-			throw  "NotFoundError";
+			throw new DOMException(DOMException.NOT_FOUND_ERR);
 		}
 		if ( parent.nodeType == Node.DOCUMENT_NODE )
 		{
 			if ( node.nodeType != Node.DOCUMENT_FRAGMENT_NODE && node.nodeType != Node.DOCUMENT_TYPE_NODE && node.nodeType != Node.ELEMENT_NODE && 
 					node.nodeType != Node.PROCESSING_INSTRUCTION_NODE && node.nodeType != Node.COMMENT_NODE )
 			{
-				throw "HierarchyRequestError";
+				throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 			}
 			if ( node.nodeType == Node.DOCUMENT_FRAGMENT_NODE )
 			{
 				if ( hasChild( node, Node.ELEMENT_NODE, 1 ) || hasChild( node, Node.TEXT_NODE ) )
 				{
-					throw "HierarchyRequestError";
+					throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 				}
 				if ( hasChild( node, Node.ELEMENT_NODE ) && 
 					( hasChild( parent, Node.ELEMENT_NODE ) || child.nodeType == Node.DOCUMENT_TYPE_NODE || child != null && isFollowing( child, Node.DOCUMENT_TYPE_NODE ) ) )
 				{
-					throw "HierarchyRequestError";
+					throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 				}
 			}
 			if ( node.nodeType == Node.ELEMENT_NODE &&
 				( hasChild( parent, Node.ELEMENT_NODE ) || child != null && (child.nodeType == Node.DOCUMENT_TYPE_NODE || isFollowing( child, Node.DOCUMENT_TYPE_NODE)) ) )
 			{
-				throw "HierarchyRequestError";
+				throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 			}
 			if ( node.nodeType == Node.DOCUMENT_TYPE_NODE && 
 				( hasChild( parent, Node.DOCUMENT_TYPE_NODE ) || child != null && isPreceding( child, Node.ELEMENT_NODE ) || child == null ) && 
 					hasChild( parent, Node.ELEMENT_NODE ) )
 			{
-				throw "HierarchyRequestError";
+				throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 			}
 		}
 		else if ( node.nodeType != Node.DOCUMENT_FRAGMENT_NODE && node.nodeType != Node.ELEMENT_NODE && node.nodeType != Node.TEXT_NODE && 
 					node.nodeType != Node.PROCESSING_INSTRUCTION_NODE && node.nodeType != Node.COMMENT_NODE )
 		{
-			throw "HierarchyRequestError";
+			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
 		}
 		var refChild = child;
 
@@ -357,10 +326,12 @@ class DOMTools {
 		// TODO 3. For each range whose end node is parent and end offset is greater than child's index, 
 		// increase its end offset by count.
 
-		// 4. Let nodes be node's children if node is a DocumentFragment node, and a list containing solely node otherwise.
+		// 4. Let nodes be node's children if node is a DocumentFragment node, and a list containing solely 
+		// node otherwise.
 		var nodes : NodeList = node.nodeType == Node.DOCUMENT_FRAGMENT_NODE ? node.childNodes.copy() : [node];
 
-		// TODO 5. If node is a DocumentFragment node, queue a mutation record of "childList" for node with removedNodes nodes.
+		// TODO 5. If node is a DocumentFragment node, queue a mutation record of "childList" for node with 
+		// removedNodes nodes.
 		// Note: This step does intentionally not pay attention to the suppress observers flag.
 
 		// 6. If node is a DocumentFragment node, remove its children with the suppress observers flag set.
@@ -372,8 +343,9 @@ class DOMTools {
 			}
 		}
 
-		// TODO 7. If suppress observers flag is unset, queue a mutation record of "childList" for parent with addedNodes 
-		// nodes, nextSibling child, and previousSibling child's previous sibling or parent's last child if child is null.
+		// TODO 7. If suppress observers flag is unset, queue a mutation record of "childList" for parent with 
+		// addedNodes nodes, nextSibling child, and previousSibling child's previous sibling or parent's last 
+		// child if child is null.
 
 		// 8. Insert all nodes in nodes before child or at the end of parent if child is null.
 		for (n in nodes) {
@@ -425,7 +397,7 @@ class DOMTools {
 	{
 		if ( child.parentNode != parent )
 		{
-			throw  "NotFoundError";
+			throw new DOMException(DOMException.NOT_FOUND_ERR);
 		}
 		remove( child, parent );
 		return child;
@@ -572,6 +544,21 @@ class DOMTools {
 	}
 
 	///
+	// TREES
+	//
+
+	static public function isDescendant(a : Node, b : Node) : Bool {
+
+		if (b.childNodes.indexOf(a) > -1) return true;
+
+		for (c in b.childNodes) {
+
+			if (isDescendant(a, c)) return true;
+		}
+		return false;
+	}
+
+	///
 	// ATTRIBUTES
 	//
 
@@ -617,6 +604,30 @@ class DOMTools {
 	//
 
 	/**
+	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-nonelementparentnode
+	 */
+	static public function getElementById(id : String, root : Node) : Null<Element> {
+
+		for (c in root.childNodes) {
+
+			if (c.nodeType == Node.ELEMENT_NODE) {
+
+				if (Std.instance(c, Element).id == id) {
+
+					return Std.instance(c, Element);
+				
+				} else {
+
+					var e : Null<Element> = getElementById(id, c);
+
+					if (e != null) return e;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-getelementsbyclassname
 	 * 
 	 * TODO When invoked with the same argument, the same HTMLCollection object may be returned 
@@ -634,15 +645,15 @@ class DOMTools {
 
 						return false;
 					}
-					var e : Element = Std.instance(root, Element);
+					var e : Element = Std.instance(n, Element);
 					var ec : Array<String> = parseOrderedSet(e.className);
 
-					for (c in classNames) {
+					for (c in classes) {
 
 						// FIXME If root's node document is in quirks mode, then the comparisons 
 						// for the classes must be done in an ASCII case-insensitive manner, and 
 						// in a case-sensitive manner otherwise.
-						if (!ec.has(c)) {
+						if (ec.indexOf(c) == -1) {
 
 							return false;
 						}
@@ -674,7 +685,11 @@ class DOMTools {
 
 			// Whose namespace is not the HTML namespace and whose local name is localName.
 		
-		return getFilteredList(root, function(n : Node) { return n.nodeType == Node.ELEMENT_NODE && n.localName == localName; });
+		return getFilteredList(root, function(n : Node) {
+
+				return n.nodeType == Node.ELEMENT_NODE && Std.instance(n, Element).localName == localName;
+
+			});
 	}
 
 	/**
@@ -691,10 +706,9 @@ class DOMTools {
 
 			if (filter(root.childNodes[i])) {
 
-				ret.push(root.childNodes[i]);
-
-				ret = ret.concat(getFilteredList(root.childNodes[i], filter));
+				ret.push(Std.instance(root.childNodes[i], Element));
 			}
+			ret = ret.concat(getFilteredList(root.childNodes[i], filter));
 		}
 		return ret;
 	}
@@ -768,7 +782,7 @@ class DOMTools {
 	/**
 	 * @ see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-ordered-set-serializer
 	 */
-	static public function serializeOrderedSet(input : Array<String>) : String {
+	inline static public function serializeOrderedSet(input : Array<String>) : String {
 
 		return input.join(" ");
 	}
@@ -779,22 +793,22 @@ class DOMTools {
 	static public function parseOrderedSet(input : String) : Array<String> {
 
 		var p : Int = 0;
-		var tokens : Array<String> : [];
+		var tokens : Array<String> = [];
 		var currentToken : String = "";
 
 		while (p < input.length) {
 
-			var c : String : input.charAt(p);
+			var c : String = input.charAt(p);
 
-			if (c != " ") {
+			if (!isASCIIWhitespace(c)) {
 
 				currentToken += c;
 			
 			} else {
 
-				if (currentToken != "") {
+				if (currentToken.length > 0) {
 
-					if (!tokens.has(currentToken)) {
+					if (tokens.indexOf(currentToken) == -1) {
 
 						tokens.push(currentToken);
 					}
@@ -803,5 +817,26 @@ class DOMTools {
 			}
 			p++;
 		}
+		if (currentToken.length > 0) {
+
+			if (tokens.indexOf(currentToken) == -1) {
+
+				tokens.push(currentToken);
+			}
+			currentToken = "";
+		}
+		return tokens;
+	}
+
+	/**
+	 * @see http://encoding.spec.whatwg.org/#ascii-whitespace
+	 * Note: this method could be in another project.
+	 */
+	static inline public function isASCIIWhitespace(c : String) : Bool {
+
+		if (c.length != 1) throw "CocktailError: wrong size string";
+
+		return c.charCodeAt(0) == 0x9 || c.charCodeAt(0) == 0xA || c.charCodeAt(0) == 0xC || 
+			c.charCodeAt(0) == 0xD || c.charCodeAt(0) == 0x20;
 	}
 }

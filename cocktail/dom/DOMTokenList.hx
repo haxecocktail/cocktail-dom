@@ -14,33 +14,35 @@ package cocktail.dom;
 /**
  * @see http://www.w3.org/TR/2014/CR-dom-20140508/#domtokenlist
  */
-abstract DOMTokenList(Array<String>) {
+class DOMTokenList {
 
-    inline public function new(a : Array<String>, element : Element, attributeLocalName : String) {
+    public function new(values : Array<String>, element : Element, attributeLocalName : Null<String>) {
 
-        this = a;
+        this.values = values;
         this.element = element;
         this.attributeLocalName = attributeLocalName;
     }
 
+    private var values : Array<String>;
     private var element : Element;
     private var attributeLocalName : Null<String>;
 
     public var stringifier (get, never) : String;
 
-    inline public function item(index : Int) : Null<String> {
+    @:arrayAccess
+    public function item(index : Int) : Null<String> {
 
-    	if (index < 0 || index >= this.length) {
+    	if (index < 0 || index >= values.length) {
 
     		return null;
     	}
-    	return this[index];
+    	return values[index];
     }
 
     /**
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-domtokenlist-contains
      */
-    inline public function contains(token : String) : Bool {
+    public function contains(token : String) : Bool {
 
     	if (token == "") {
 
@@ -50,14 +52,14 @@ abstract DOMTokenList(Array<String>) {
 
     		throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
     	}
-    	return (this.indexOf(token) > -1);
+    	return (values.indexOf(token) > -1);
     }
 
     /**
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-domtokenlist-add
      * Should be a variable number of arguments but Haxe doesn't allow that.
      */
-	inline public function add(t1 : String, ? t2 : Null<String>, ? t3 : Null<String>, ? t4 : Null<String>, 
+	public function add(t1 : String, ? t2 : Null<String>, ? t3 : Null<String>, ? t4 : Null<String>, 
 		? t5 : Null<String>, ? t6 : Null<String>, ? t7 : Null<String>, ? t8 : Null<String>, 
 		? t9 : Null<String>) : Void {
 
@@ -74,9 +76,9 @@ abstract DOMTokenList(Array<String>) {
 
 	    		throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
 	    	}
-	    	if (this.indexOf(tokens[ti]) == -1) {
+	    	if (values.indexOf(tokens[ti]) == -1) {
 
-	    		this.push(tokens[ti]);
+	    		values.push(tokens[ti]);
 	    	}
 	    	ti++;
 		}
@@ -87,7 +89,7 @@ abstract DOMTokenList(Array<String>) {
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-domtokenlist-remove
      * Should be a variable number of arguments but Haxe doesn't allow that.
      */
-	inline public function remove(t1 : String, ? t2 : Null<String>, ? t3 : Null<String>, ? t4 : Null<String>, 
+	public function remove(t1 : String, ? t2 : Null<String>, ? t3 : Null<String>, ? t4 : Null<String>, 
 		? t5 : Null<String>, ? t6 : Null<String>, ? t7 : Null<String>, ? t8 : Null<String>, 
 		? t9 : Null<String>) : Void {
 
@@ -104,7 +106,7 @@ abstract DOMTokenList(Array<String>) {
 
 	    		throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
 	    	}
-	    	this.remove(tokens[ti]);
+	    	values.remove(tokens[ti]);
 	    	ti++;
 		}
 		update();
@@ -113,7 +115,7 @@ abstract DOMTokenList(Array<String>) {
     /**
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-domtokenlist-toggle
      */
-	inline public function toggle(token : String, ? force : Null<Bool> = null) : Bool {
+	public function toggle(token : String, ? force : Null<Bool> = null) : Bool {
 
 		if (token == "") {
 
@@ -123,11 +125,11 @@ abstract DOMTokenList(Array<String>) {
 
     		throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
     	}
-    	if (this.indexOf(token) > -1) {
+    	if (values.indexOf(token) > -1) {
 
     		if (force == null || force == false) {
 
-    			this.remove(token);
+    			values.remove(token);
 
     			update();
 
@@ -146,7 +148,7 @@ abstract DOMTokenList(Array<String>) {
     		
     		} else {
 
-    			this.push(token);
+    			values.push(token);
 
     			update();
 
@@ -159,13 +161,13 @@ abstract DOMTokenList(Array<String>) {
 	// INTERNALS
 	//
 
-	inline private function update() : Void {
+	private function update() : Void {
 
 		if (attributeLocalName == null) { // DOMSettableTokenList case
 
 			return;
 		}
-		element.setAttribute(attributeLocalName, DOMTools.serializeOrderedSet(this));
+		element.setAttribute(attributeLocalName, DOMTools.serializeOrderedSet(values));
 	}
 	
 	///
@@ -174,6 +176,6 @@ abstract DOMTokenList(Array<String>) {
 
 	private function get_stringifier() : String {
 
-		return DOMTools.serializeOrderedSet(this);
+		return DOMTools.serializeOrderedSet(values);
 	}
 }

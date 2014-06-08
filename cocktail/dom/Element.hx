@@ -22,6 +22,8 @@ class Element extends Node {
 
         this.classList = new DOMTokenList([], this, DOMConstants.CLASS_ATTRIBUTE_NAME);
         this.attributes = [];
+
+        this.localName = localName;
         this.namespaceURI = namespaceURI;
         this.prefix = prefix;
     }
@@ -29,27 +31,27 @@ class Element extends Node {
     /**
      * readonly
      */
-    public var namespaceURI : Null<String> (default, null);
+    public var namespaceURI (default, null) : Null<String>;
     /**
      * readonly
      */
-    public var prefix : Null<String> (default, null);
+    public var prefix (default, null) : Null<String>;
     /**
      * readonly
      */
-    public var localName : String (default, null);
+    public var localName (default, null) : String;
     /**
      * readonly
      */
-    public var tagName : String (get, null);
+    public var tagName (get, null) : String;
     /**
      * Note: Historically elements could have multiple identifiers e.g. by 
      * using the HTML id attribute and a DTD. This specification makes ID a 
      * concept of the DOM and allows for only one per element, given by an 
      * id attribute.
      */
-    public var id (get, default) : String;
-    public var className (get, default) : String;
+    @:isVar public var id (get, set) : String;
+    @:isVar public var className (get, set) : String;
     /**
      * readonly
      * [SameObject]
@@ -111,7 +113,7 @@ class Element extends Node {
             DOMTools.changeAttr(attribute, this, value);
         }
     }
-    public function setAttributeNS(DOMString? namespace, DOMString name, DOMString value) : Void {
+    public function setAttributeNS(? namespace : Null<String>, name : String, value : String) : Void {
     #if strict
         throw "Not implemented!";
     #end
@@ -185,6 +187,46 @@ class Element extends Node {
     // GETTER / SETTER
     //
 
+    override private function get_nodeType() : Int {
+
+        return Node.ELEMENT_NODE;
+    }
+    override private function get_nodeName() : String {
+
+        return tagName;
+    }
+    override private function get_textContent() : Null<String> {
+
+        // The concatenation of data of all the Text node descendants of the context object, in tree order.
+        var ret : String = "";
+
+        for (c in childNodes) {
+
+            if (c.nodeType == Node.TEXT_NODE) {
+
+                ret += Std.instance(c, Text).data;
+            
+            } else if (c.childNodes.length > 0) {
+
+                ret += c.textContent;
+            }
+        }
+        return ret;
+    }
+    override private function set_textContent(value : Null<String>) : Null<String> {
+
+        if (value == null) value = "";
+
+        var node = null;
+
+        if (value != "") {
+
+            node = new Text(value);
+        }
+        DOMTools.replaceAll(node, this);
+
+        return value;
+    }
     private function get_tagName() : String {
 
         var qualifiedName : String = prefix != null ? prefix + ":" + localName : localName;
@@ -197,12 +239,39 @@ class Element extends Node {
         }
         return qualifiedName;
     }
-    public function get_id() : String {
+    private function get_id() : String {
 
         return id != null ? id : "";
     }
-    public function get_className() : String {
+    private function set_id(v : String) : String {
 
-        return classNam != null ? classNam : "";
+        id = v != null ? v : "";
+
+        return id;
+    }
+    private function get_className() : String {
+
+        return className != null ? className : "";
+    }
+    private function set_className(v : String) : String {
+
+        className = v != null ? v : "";
+
+        return className;
+    }
+
+    ///
+    // INTERNALS
+    //
+
+    override private function doCloneNode() : Node {
+
+        var clone : Element = new Element(this.localName, this.namespaceURI, this.prefix);
+
+        for (a in this.attributes) {
+
+            clone.setAttribute(a.name, a.value);
+        }
+        return clone;
     }
 }

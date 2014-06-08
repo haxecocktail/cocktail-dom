@@ -30,7 +30,7 @@ class Document extends Node {
 
         super();
 
-        this.implementation = new DOMImplementation();
+        this.implementation = new DOMImplementation(this);
     }
 
     /**
@@ -71,7 +71,10 @@ class Document extends Node {
      */
     public var documentElement (get, null) : Null<Element>;
 
+    public function getElementById(elementId : String) : Null<Element> {
 
+        return DOMTools.getElementById(elementId, this);
+    }
 
     public function getElementsByTagName(localName : String) : HTMLCollection {
 
@@ -91,15 +94,27 @@ class Document extends Node {
     }
 
     /**
+     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-document-createelement
      * [NewObject]
      */
     public function createElement(localName : String) : Element {
 
-        // TODO check Name Production http://www.w3.org/TR/xml/#NT-Name
+        // FIXME check Name Production http://www.w3.org/TR/xml/#NT-Name
         if (localName == null) {
 
             throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
         }
+        // FIXME If the context object is an HTML document, let localName be converted to ASCII lowercase.
+
+        // FIXME Let interface be the element interface for localName and the HTML namespace.
+
+        // FIXME Return a new element that implements interface, with no attributes, namespace set to the 
+        // HTML namespace, local name set to localName, and node document set to the context object.
+        var e : Element = new Element(localName, DOMConstants.HTML_NAMESPACE);
+
+        DOMTools.adopt(e, this);
+
+        return e;
     }
     /**
      * [NewObject]
@@ -108,6 +123,7 @@ class Document extends Node {
     #if strict
         throw "Not implemented!";
     #end
+        return null;
     }
     /**
      * [NewObject]
@@ -116,37 +132,48 @@ class Document extends Node {
 
         var df : DocumentFragment = new DocumentFragment();
         
-        return DOMTools.adopt(df, this);
+        DOMTools.adopt(df, this);
+
+        return df;
     }
     /**
      * [NewObject]
      */
     public function createTextNode(data : String) : Text {
 
-        var tn : Text = new Text();
-        
-        tn.data = data;
+        var tn : Text = new Text(data);
 
-        return DOMTools.adopt(tn, this);
+        DOMTools.adopt(tn, this);
+
+        return tn;
     }
     /**
      * [NewObject]
      */
     public function createComment(data : String) : Comment {
 
-        var c : Comment = new Comment();
+        var c : Comment = new Comment(data);
 
-        c.data = data;
+        DOMTools.adopt(c, this);
 
-        return DOMTools.adopt(c, this);
+        return c;
     }
     /**
      * [NewObject]
      */
     public function createProcessingInstruction(target : String, data : String) : ProcessingInstruction {
-    #if strict
-        throw "Not implemented!";
-    #end
+
+        // FIXME If target does not match the Name production, throw an "InvalidCharacterError" exception.
+
+        if (data.indexOf("?>") > -1) {
+
+            throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
+        }
+        var pi : ProcessingInstruction = new ProcessingInstruction(data, target);
+
+        DOMTools.adopt(pi, this);
+
+        return pi;
     }
 
     public function importNode(node : Node, ? deep : Bool = false) : Node {
@@ -169,12 +196,13 @@ class Document extends Node {
     /**
      * [NewObject]
      */
-    public function createEvent(interface : String) : Event {
+    public function createEvent(eventInterface : String) : Event {
         // TODO http://www.w3.org/TR/2014/CR-dom-20140508/#dom-document-createevent
         // should this be in cocktail-dom-event or here ?
     #if strict
         throw "Not implemented!";
     #end
+        return null;
     }
 
     /**
@@ -184,6 +212,7 @@ class Document extends Node {
     #if strict
         throw "Not implemented!";
     #end
+        return null;
     }
 
     /**
@@ -194,6 +223,7 @@ class Document extends Node {
     #if strict
         throw "Not implemented!";
     #end
+        return null;
     }
     /**
      * [NewObject]
@@ -203,12 +233,25 @@ class Document extends Node {
     #if strict
         throw "Not implemented!";
     #end
+        return null;
     }
 
     ///
     // GETTER / SETTER
     //
 
+    override private function get_nodeType() : Int {
+
+        return Node.DOCUMENT_NODE;
+    }
+    override private function get_nodeName() : String {
+
+        return DOMConstants.DOCUMENT_NODE_NAME;
+    }
+    override private function get_ownerDocument() : Null<Document> {
+
+        return null;
+    }
     private function get_URL() : String {
     #if strict
         throw "Not implemented!";
@@ -252,123 +295,31 @@ class Document extends Node {
         return null;
     }
     private function get_documentElement() : Null<Element> {
-    #if strict
-        throw "Not implemented!";
-    #end
-        return null;
-    }
 
+        for (c in childNodes) {
 
+            if (c.nodeType == Node.ELEMENT_NODE) {
 
-
-
-
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC METHODS
-    //////////////////////////////////////////////////////////////////////////////////////////
-    
-    /**
-     * Creates a Text node given the specified string.
-     * @param    data The data for the node.
-     * @return The new Text object.
-     */
-    public function createTextNode(data:String):Text
-    {
-        var text:Text = new Text();
-        text.nodeValue = data;
-        text.ownerDocument = this;
-        
-        return text;
-    }
-    
-    /**
-     * Creates a Comment node given the specified string.
-     * @param    data The data for the node.
-     * @return The new Comment object.
-     */
-    public function createComment(data:String):Comment
-    {
-        var comment:Comment = new Comment();
-        comment.nodeValue = data;
-        return comment;
-    }
-    
-    /**
-     * Creates an Attr of the given name. Note that the 
-     * Attr instance can then be set on an Element using
-     * the setAttributeNode method.
-     * To create an attribute with a qualified name
-     * and namespace URI, use the createAttributeNS method.
-     * 
-     * TODO 5 : implement localName, prefix, namespaceURI
-     * 
-     * @param    name The name of the attribute.
-     * @return A new Attr object with the nodeName attribute 
-     * set to name, and localName, prefix, 
-     * and namespaceURI set to null. The value 
-     * of the attribute is the empty string.
-     */
-    public function createAttribute(name:String):Attr
-    {
-        var attribute:Attr = new Attr(name);
-        return attribute;
-    }
-    
-    /**
-     * Provides a mechanism by which the user can create an Event object
-     * of a type supported by the implementation.
-     * If the feature “Events” is supported by the Document object, 
-     * the DocumentEvent interface must be implemented on the same object.
-     * Language-specific type casting may be required.
-     * @param    eventInterface
-     * @return
-     */
-    public function createEvent(eventInterface:String):Event
-    {    
-        switch (eventInterface)
-        {
-            case DOMConstants.EVENT_INTERFACE:
-                return new Event();
-                
-            case DOMConstants.UI_EVENT_INTERFACE:
-                return new UIEvent();
-                
-            case DOMConstants.CUSTOM_EVENT_INTERFACE:
-                return new CustomEvent();
-                
-            case DOMConstants.MOUSE_EVENT_INTERFACE:
-                return new MouseEvent();
-                
-            case DOMConstants.KEYBOARD_EVENT_INTERFACE:
-                return new KeyboardEvent();
-                
-            case DOMConstants.FOCUS_EVENT_INTERFACE:
-                return new FocusEvent();
-                
-            case DOMConstants.WHEEL_EVENT_INTERFACE:
-                return new WheelEvent();
-                
-            case DOMConstants.TRANSITION_EVENT_INTERFACE:
-                return new TransitionEvent();
-                
-            case DOMConstants.POPSTATE_EVENT_INTERFACE:
-                return new PopStateEvent();
-                
-            default:
-                throw DOMException.NOT_SUPPORTED_ERR;
+                return Std.instance(c, Element);
+            }
         }
-        
         return null;
     }
-    
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // OVERRIDEN SETTERS/GETTERS
-    //////////////////////////////////////////////////////////////////////////////////////////
-    
-    override private function get_nodeType():Int
-    {
-        return DOMConstants.DOCUMENT_NODE;
+
+    ///
+    // INTERNALS
+    //
+
+    override private function doCloneNode() : Node {
+
+        var clone : Document = new Document();
+
+        clone.characterSet = this.characterSet;
+        clone.contentType = this.contentType;
+        clone.URL = this.URL;
+        clone.compatMode = this.compatMode;
+        clone.doctype = this.doctype;
+
+        return clone;
     }
 }

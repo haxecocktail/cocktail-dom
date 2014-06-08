@@ -57,7 +57,29 @@ class CharacterData extends Node {
     // GETTER / SETTER
     //
 
+    override private function get_nodeValue() : Null<String> {
+
+        return data;
+    }
+    override private function set_nodeValue(value : Null<String>) : Null<String> {
+
+        DOMTools.replaceData(this, 0, length, value != null ? value : "");
+
+        return data;
+    }
+    override private function get_textContent() : Null<String> {
+
+        return data;
+    }
+    override private function set_textContent(value : Null<String>) : Null<String> {
+
+        DOMTools.replaceData(this, 0, length, value != null ? value : "");
+
+        return data;
+    }
     private function set_data(v : String) : String {
+
+        if (v == null) v = "";
 
         DOMTools.replaceData(this, 0, length, v);
 

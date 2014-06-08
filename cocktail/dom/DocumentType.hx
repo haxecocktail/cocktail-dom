@@ -18,6 +18,8 @@ class DocumentType extends Node {
 
 	public function new(name : String, ? publicId : String = "", ? systemId : String = "") {
 
+        super();
+
 		this.name = name;
 		this.publicId = publicId;
 		this.systemId = systemId;
@@ -26,4 +28,28 @@ class DocumentType extends Node {
 	public var name (default, null) : String;
 	public var publicId (default, null) : String;
 	public var systemId (default, null) : String;
+
+	///
+	// GETTER / SETTER
+	//
+
+    override private function get_nodeType() : Int {
+
+        return Node.DOCUMENT_TYPE_NODE;
+    }
+    override private function get_nodeName() : String {
+
+        return name;
+    }
+
+    ///
+    // INTERNALS
+    //
+
+    override private function doCloneNode() : Node {
+
+        var clone : DocumentType = new DocumentType(this.name, this.publicId, this.systemId);
+
+        return clone;
+    }
 }

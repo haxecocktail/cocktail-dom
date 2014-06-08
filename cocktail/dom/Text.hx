@@ -31,7 +31,7 @@ class Text extends CharacterData {
     /**
      * [NewObject]
      */
-    public function splitText(unsigned long offset) : Text {
+    public function splitText(offset : Int) : Text {
     #if strict
         throw "Not implemented!";
     #end
@@ -43,11 +43,30 @@ class Text extends CharacterData {
     // GETTER / SETTER
     //
 
-    private function get_wholeText : String {
+    override private function get_nodeType() : Int {
+
+        return Node.TEXT_NODE;
+    }
+    override private function get_nodeName() : String {
+
+        return DOMConstants.TEXT_NODE_NAME;
+    }
+    private function get_wholeText() : String {
     #if strict
         throw "Not implemented!";
     #end
         // TODO @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-text-wholetext
         return "";
+    }
+
+    ///
+    // INTERNALS
+    //
+
+    override private function doCloneNode() : Node {
+
+        var clone : Text = new Text(this.data);
+
+        return clone;
     }
 }

@@ -18,7 +18,12 @@ package cocktail.dom;
  */
 class DOMImplementation {
 
-	public function new() { }
+	public function new(document : Document) {
+
+		this.document = document;
+	}
+
+	private var document : Document;
 
 	/**
 	 * [NewObject]
@@ -29,19 +34,23 @@ class DOMImplementation {
 
 		// TODO 2 - If qualifiedName does not match the QName production, throw a "NamespaceError" exception.
 
-		// TODO 3 - Return a new doctype, with qualifiedName as its name, publicId as its public ID, and systemId as its system ID, and with its node document set to the associated document of the context object.
-	#if strict
-        throw "Not implemented!";
-    #end
+		// TODO 3 - Return a new doctype, with qualifiedName as its name, publicId as its public ID, and systemId as 
+		// its system ID, and with its node document set to the associated document of the context object.
+		var d : DocumentType = new DocumentType(qualifiedName, publicId, systemId);
+
+		DOMTools.adopt(d, document);
+
+		return d;
 	}
 	/**
 	 * [NewObject]
 	 */
-	public function createDocument(? namespace : Null<String>, ? qualifiedName : String = "", ? doctype : Null<DocumentType>) : XMLDocument {
+	public function createDocument(? namespace : Null<String>, ? qualifiedName : String = "", ? doctype : Null<DocumentType>) : Document {
 
 	#if strict
         throw "Not implemented!";
     #end
+    	return null;
 	}
 	/**
 	 * [NewObject]
@@ -52,6 +61,7 @@ class DOMImplementation {
 	#if strict
         throw "Not implemented!";
     #end
+    	return null;
 	}
 
 	/**

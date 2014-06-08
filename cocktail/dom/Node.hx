@@ -14,12 +14,10 @@ package cocktail.dom;
 import cocktail.event.EventTarget;
 
 /**
- * Node is an abstract interface and does not exist as node. 
- * It is used by all nodes (Document, DocumentFragment, DocumentType, 
- * Element, Text, ProcessingInstruction, and Comment).
+ * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-node
  */
-class Node extends EventTarget
-{
+class Node extends EventTarget {
+
     static public inline var ELEMENT_NODE : Int = 1;
     /**
      * historical
@@ -65,27 +63,29 @@ class Node extends EventTarget
     /**
      * readonly
      */
-    public var nodeType (default, null) : Int;
+    public var nodeType (get, never) : Int;
     /**
      * readonly
      */
-    public var nodeName : String;
+    public var nodeName (get, never) : String;
+    /**
+     * readonly
+     * Note: Other specifications define the value of the base URL and its observable behavior.
+     * This implementation solely defines the concept and the baseURI attribute.
+     */
+    public var baseURI (get, null) : Null<String>;
     /**
      * readonly
      */
-    public var baseURI : Null<String>;
+    public var ownerDocument (get, null) : Null<Document>;
     /**
      * readonly
      */
-    public var ownerDocument : Null<Document>;
+    public var parentNode (default, null) : Null<Node>;
     /**
      * readonly
      */
-    public var parentNode : Null<Node>;
-    /**
-     * readonly
-     */
-    public var parentElement : Null<Element>;
+    public var parentElement (get, null) : Null<Element>;
     /**
      * [SameObject]
      * readonly
@@ -184,44 +184,49 @@ class Node extends EventTarget
     /**
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-comparedocumentposition
      */
-    public function compareDocumentPosition(Node other) : Int {
+    public function compareDocumentPosition(other : Node) : Int {
     #if strict
         throw "Not implemented!";
     #end
+        return -1;
     }
 
     /**
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-contains
      */
-    public function contains(Node? other) : Bool {
+    public function contains(? other : Null<Node>) : Bool {
     #if strict
         throw "Not implemented!";
     #end
+        return false;
     }
 
     /**
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-lookupprefix
      */
-    public function lookupPrefix(DOMString? namespace) : String {
+    public function lookupPrefix(? namespace : Null<String>) : String {
     #if strict
         throw "Not implemented!";
     #end
+        return "";
     }
     /**
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-lookupnamespaceuri
      */
-    public function lookupNamespaceURI(DOMString? prefix) : String {
+    public function lookupNamespaceURI(? prefix : Null<String>) : String {
     #if strict
         throw "Not implemented!";
     #end
+        return "";
     }
     /**
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-isdefaultnamespace
      */
-    public function isDefaultNamespace(DOMString? namespace) : Bool {
+    public function isDefaultNamespace(? namespace : Null<String>) : Bool {
     #if strict
         throw "Not implemented!";
     #end
+        return false;
     }
 
     public function insertBefore(node : Node, child : Null<Node>) : Node {
@@ -245,7 +250,27 @@ class Node extends EventTarget
     // GETTER / SETTER
     //
 
-    public function get_firstChild() : Null<Node> {
+    private function get_nodeType() : Int {
+
+        return 0;
+    }
+    private function get_nodeName() : String {
+
+        return "";
+    }
+    private function get_baseURI() : Null<String> {
+
+        return null;
+    }
+    private function get_ownerDocument() : Null<Document> {
+
+        return ownerDocument;
+    }
+    private function get_parentElement() : Null<Element> {
+
+        return parentNode.nodeType == Node.ELEMENT_NODE ? Std.instance(parentNode, Element) : null;
+    }
+    private function get_firstChild() : Null<Node> {
 
         if (childNodes.length > 0) {
 
@@ -253,7 +278,7 @@ class Node extends EventTarget
         }
         return null;
     }
-    public function get_lastChild() : Null<Node> {
+    private function get_lastChild() : Null<Node> {
 
         if (childNodes.length > 0) {
 
@@ -261,7 +286,7 @@ class Node extends EventTarget
         }
         return null;
     }
-    public function get_previousSibling() : Null<Node> {
+    private function get_previousSibling() : Null<Node> {
 
         if (parentNode == null) {
 
@@ -281,7 +306,7 @@ class Node extends EventTarget
         }
         return null;
     }
-    public function get_nextSibling() : Null<Node> {
+    private function get_nextSibling() : Null<Node> {
 
         //if the node is not attached, it has no siblings
         if (parentNode == null) {

@@ -22,4 +22,28 @@ class Comment extends CharacterData {
 
         this.data = data;
     }
+
+    ///
+    // GETTER / SETTER
+    //
+
+    override private function get_nodeType() : Int {
+
+        return Node.COMMENT_NODE;
+    }
+    override private function get_nodeName() : String {
+
+        return DOMConstants.COMMENT_NODE_NAME;
+    }
+
+    ///
+    // INTERNALS
+    //
+
+    override private function doCloneNode() : Node {
+
+        var clone : Comment = new Comment(this.data);
+
+        return clone;
+    }
 }

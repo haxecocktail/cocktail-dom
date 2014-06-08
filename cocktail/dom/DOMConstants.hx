@@ -26,8 +26,48 @@ class DOMConstants {
 
     public static inline var XMLNS_NAMESPACE : String = "http://www.w3.org/2000/xmlns/";
 
+    ///
+    // DOCUMENTS
+    //
     
-    //Document event interfaces
+    public static inline var DOCUMENT_NODE_NAME : String = "#document";
+
+    ///
+    // DOCUMENT FRAGMENTS
+    //
+    
+    public static inline var DOCUMENT_FRAGMENT_NODE_NAME : String = "#document-fragment";
+
+    ///
+    // ELEMENTS
+    //
+    
+    /**
+     * filter value meaning "any element" in getElementsByTagName
+     */
+    public static inline var MATCH_ALL_TAG_NAME : String = "*";
+
+    public static inline var ID_ATTRIBUTE_NAME : String = "id";
+    
+    public static inline var CLASS_ATTRIBUTE_NAME : String = "class";
+    
+    ///
+    // TEXTS
+    //
+    
+    public static inline var TEXT_NODE_NAME : String = "#text";
+
+    ///
+    // COMMENTS
+    //
+    
+    public static inline var COMMENT_NODE_NAME : String = "#comment";
+
+
+
+    ///
+    // Document event interfaces <= FIXME should this be here ? or in cocktail-event ?
+    //
 
     public static inline var EVENT_INTERFACE:String = "Event";
     
@@ -46,20 +86,4 @@ class DOMConstants {
     public static inline var TRANSITION_EVENT_INTERFACE:String = "TransitionEvent";
 
     public static inline var POPSTATE_EVENT_INTERFACE:String = "PopStateEvent";
-    
-    //Element const
-    
-    /**
-     * When using getElementsByTagName, this value
-     * used as tagName returns all the child elements
-     */
-    public static inline var MATCH_ALL_TAG_NAME : String = "*";
-
-    public static inline var ID_ATTRIBUTE_NAME : String = "id";
-    
-    public static inline var CLASS_ATTRIBUTE_NAME : String = "class";
-    
-    //Text const
-    
-    public static inline var TEXT_NODE_NAME : String = "#text";
 }

@@ -14,13 +14,11 @@ package cocktail.dom;
 /**
  * @see http://www.w3.org/TR/2014/CR-dom-20140508/#domsettabletokenlist
  */
-abstract DOMSettableTokenList(DOMTokenList) {
+class DOMSettableTokenList extends DOMTokenList {
 
-    inline public function new(a : Array<String>, element : Element) {
+    public function new(a : Array<String>, element : Element) {
 
-        this = a;
-        this.element = element;
-        this.attributeLocalName = null;
+        super(a, element, null);
     }
 
     public var value (get, set) : String;
@@ -31,11 +29,11 @@ abstract DOMSettableTokenList(DOMTokenList) {
 
     private function get_value() : String {
 
-    	return DOMTools.serializeOrderedSet(this);
+    	return DOMTools.serializeOrderedSet(values);
     }
     private function set_value(v : String) : String {
 
-    	this = DOMTools.parseOrderedSet(v);
+    	values = DOMTools.parseOrderedSet(v);
 
     	return v;
     }
