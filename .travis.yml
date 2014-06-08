@@ -16,4 +16,5 @@ before_script:
   - mkdir report
 
 script:
+  - cd tests/unit
   - haxelib run munit test -neko -cpp
