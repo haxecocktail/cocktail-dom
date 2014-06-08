@@ -1,62 +1,57 @@
 ## Flash 9+
--main unit.TestMain
+-main TestMain
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
 -cp ../..
--cp ..
 
 -swf-version 11
--swf as3_test.swf
+-swf bin/as3_test.swf
 
 --next
 
 ## Flash 8
--main unit.TestMain
+-main TestMain
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
 -cp ../..
--cp ..
 
 -swf-version 8
--swf as2_test.swf
+-swf bin/as2_test.swf
 
 --next
 
 ## JavaScript
--main unit.TestMain
+-main TestMain
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
 -cp ../..
--cp ..
 
--js js_test.js
+-js bin/js_test.js
 
 --next
 
 ## Neko
--main unit.TestMain
+-main TestMain
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
 -cp ../..
--cp ..
 
--neko neko_test.n
+-neko bin/neko_test.n
 
 --next
 
 ## CPP
--main unit.TestMain
+-main TestMain
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
 -cp ../..
--cp ..
 
 #-D HXCPP_M64
--cpp cpp_test
+-cpp bin/cpp_test
 
 

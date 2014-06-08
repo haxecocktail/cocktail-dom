@@ -3,7 +3,9 @@
 *.DS_Store
 Thumbs.db
 report
-cpp_test
+ExampleTest.hx
+TestMain.hx
+TestSuite.hx
 *.swf
 *.js
 *.js.map
