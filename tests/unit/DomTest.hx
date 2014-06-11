@@ -31,7 +31,6 @@ class DomTest
     	this.document = new Document();
 
     	this.elt = document.createElement("a");
-
     	elt.id = "elt1";
     	elt.className = "testElt";
 
@@ -70,6 +69,25 @@ class DomTest
     var text2 : Text;
 
     @Test
+    public function testElementCreation()
+    {
+        Assert.isTrue(elt != null && elt2 != null && elt3 != null && elt4 != null && elt5 != null && elt6 != null && elt7 != null);
+        Assert.isTrue(elt != elt2 && elt2 != elt3 && elt3 != elt4 && elt4 != elt5 && elt5 != elt6 && elt6 != elt7);
+    }
+
+    @Test
+    public function testChildNodes()
+    {
+        Assert.isTrue(elt.childNodes.length == 0);
+        Assert.isTrue(elt2.childNodes.length == 3);
+        Assert.isTrue(elt3.childNodes.length == 0);
+        Assert.isTrue(elt4.childNodes.length == 4);
+        Assert.isTrue(elt5.childNodes.length == 1);
+        Assert.isTrue(elt6.childNodes.length == 0);
+        Assert.isTrue(elt7.childNodes.length == 0);
+    }
+
+    @Test
     public function testDocumentGetElementById()
     {
     	var r : Element = document.getElementById("elt1");
@@ -105,9 +123,28 @@ class DomTest
     {
         Assert.isTrue(elt7.previousElementSibling != null);
         Assert.isTrue(elt7.previousElementSibling != elt5);
-    	Assert.isTrue(elt7.previousElementSibling == elt6);
+        Assert.isTrue(elt7.previousElementSibling == elt6);
         Assert.isTrue(elt3.nextElementSibling != null);
         Assert.isTrue(elt3.nextElementSibling != elt5);
-    	Assert.isTrue(elt3.nextElementSibling == elt4);
+        Assert.isTrue(elt3.nextElementSibling == elt4);
+    }
+
+    @Test
+    public function testElementChildren()
+    {
+        elt4.appendChild(elt5);
+        elt4.appendChild(elt6);
+        elt4.appendChild(text1);
+        elt4.appendChild(elt7);
+
+        Assert.isTrue(elt.children.length == 0);
+        Assert.isTrue(elt.firstElementChild == null);
+        Assert.isTrue(elt.lastElementChild == null);
+        Assert.isTrue(elt.childElementCount == 0);
+trace(elt4.children.length);
+        Assert.isTrue(elt4.children.length == 3);
+        Assert.isTrue(elt4.firstElementChild == elt5);
+        Assert.isTrue(elt4.lastElementChild == elt7);
+        Assert.isTrue(elt4.childElementCount == 3);
     }
 }

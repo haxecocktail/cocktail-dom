@@ -72,6 +72,47 @@ class Element extends Node {
      */
     public var attributes (default, null) : Array<Attr>;
 
+    /**
+     * readonly
+     */
+    public var children (get, never) : HTMLCollection;
+    /**
+     * readonly
+     */
+    public var firstElementChild (get, never) : Null<Element>;
+    /**
+     * readonly
+     */
+    public var lastElementChild (get, never) : Null<Element>;
+    /**
+     * readonly
+     */
+    public var childElementCount (get, never) : Int;
+
+    public function prepend(/* (Node or DOMString)... nodes */) : Void {
+    #if strict
+        throw "Not implemented!";
+    #end
+    }
+    public function append(/* (Node or DOMString)... nodes */) : Void {
+    #if strict
+        throw "Not implemented!";
+    #end
+    }
+
+    public function querySelector(selectors : String) : Null<Element> {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return null;
+    }
+    public function querySelectorAll(selectors : String) : NodeList {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return null;
+    }
+
     public function getAttribute(name : String) : Null<String> {
 
         for (a in attributes) {
@@ -196,6 +237,22 @@ class Element extends Node {
     // GETTER / SETTER
     //
 
+    private function get_children() : HTMLCollection {
+
+        return DOMTools.children(this);
+    }
+    private function get_firstElementChild() : Null<Element> {
+
+        return DOMTools.firstElementChild(this);
+    }
+    private function get_lastElementChild() : Null<Element> {
+
+        return DOMTools.lastElementChild(this);
+    }
+    private function get_childElementCount() : Int {
+
+        return DOMTools.childElementCount(this);
+    }
     private function get_previousElementSibling() : Null<Element> {
 
         return DOMTools.getPreviousElementSibling(this);

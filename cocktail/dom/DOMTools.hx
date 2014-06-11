@@ -558,7 +558,7 @@ class DOMTools {
 		return false;
 	}
 
-	static public function getPreviousElementSibling(node : Node) : Null<Element> {
+	static public function getPreviousElementSibling(node : Node) : Null<Element> { // TODO optimize to use previousSibling directly
 
 		if (node.previousSibling == null) {
 
@@ -579,7 +579,7 @@ class DOMTools {
 		return Std.instance(previousElementSibling, Element);
 	}
 
-	static public function getNextElementSibling(node : Node) : Null<Element> {
+	static public function getNextElementSibling(node : Node) : Null<Element> { // TODO optimize to use previousSibling directly
 
 		if (nextSibling == null) {
 
@@ -639,6 +639,59 @@ class DOMTools {
 		element.attributes.remove(attribute);
 
 		// FIXME hook for "an attribute is removed".
+	}
+	/**
+	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-parentnode-children
+	 */
+	static public function children(node : Node) : HTMLCollection {
+
+		var ret : HTMLCollection = new HTMLCollection();
+
+		for (i in 0...node.childNodes.length) {
+
+			if (node.childNodes[i].nodeType == Node.ELEMENT_NODE) {
+
+				ret.push(Std.instance(node.childNodes[i], Element));
+			}
+		}
+		return ret;
+	}
+	/**
+	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-parentnode-firstelementchild
+	 */
+	static public function firstElementChild(node : Node) : Null<Element> {
+
+		for (i in 0...node.childNodes.length) {
+
+			if (node.childNodes[i].nodeType == Node.ELEMENT_NODE) {
+
+				return Std.instance(node.childNodes[i], Element);
+			}
+		}
+		return null;
+	}
+	/**
+	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-parentnode-lastelementchild
+	 */
+	static public function lastElementChild(node : Node) : Null<Element> {
+
+		var ret : Null<Element> = null;
+
+		for (i in 0...node.childNodes.length) {
+
+			if (node.childNodes[i].nodeType == Node.ELEMENT_NODE) {
+
+				ret = Std.instance(node.childNodes[i], Element);
+			}
+		}
+		return ret;
+    }
+	/**
+	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-parentnode-childelementcount
+	 */
+	static public function childElementCount(node : Node) : Int {
+
+		return children(node).length;
 	}
 
 	///
