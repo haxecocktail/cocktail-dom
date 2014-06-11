@@ -97,7 +97,7 @@ class CharacterData extends Node {
 
         if (v == null) v = "";
 
-        DOMTools.replaceData(this, 0, length, v);
+        data = v;
 
         return data;
     }

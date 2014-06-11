@@ -44,16 +44,16 @@ class DomTest
     	elt5.className = "testElt2";
         this.elt6 = document.createElement("e");
     	this.elt7 = document.createElement("e");
-        //this.text1 = document.createTextNode("Test Cocktail Text Content");
-        //this.text2 = document.createTextNode("Test Cocktail Text Content 2");
+        this.text1 = document.createTextNode("Test Cocktail Text Content");
+        this.text2 = document.createTextNode("Test Cocktail Text Content 2");
 
     	document.appendChild(elt2);
     	elt2.appendChild(elt3);
         elt2.appendChild(elt4);
-    	//elt2.appendChild(text2);
+    	elt2.appendChild(text2);
     	elt4.appendChild(elt5);
         elt4.appendChild(elt6);
-        //elt4.appendChild(text1);
+        elt4.appendChild(text1);
     	elt4.appendChild(elt7);
     	elt5.appendChild(elt);
     }
