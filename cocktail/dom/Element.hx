@@ -45,6 +45,14 @@ class Element extends Node {
      */
     public var tagName (get, null) : String;
     /**
+     * readonly
+     */
+    public var previousElementSibling (get, null) : Null<Element>;
+    /**
+     * readonly
+     */
+    public var nextElementSibling (get, null) : Null<Element>;
+    /**
      * Note: Historically elements could have multiple identifiers e.g. by 
      * using the HTML id attribute and a DTD. This specification makes ID a 
      * concept of the DOM and allows for only one per element, given by an 
@@ -183,10 +191,19 @@ class Element extends Node {
         return DOMTools.listOfElementWithClassNames(classNames, this);
     }
 
+
     ///
     // GETTER / SETTER
     //
 
+    private function get_previousElementSibling() : Null<Element> {
+
+        return DOMTools.getPreviousElementSibling(this);
+    }
+    private function get_nextElementSibling() : Null<Element> {
+
+        return DOMTools.getNextElementSibling(this);
+    }
     override private function get_nodeType() : Int {
 
         return Node.ELEMENT_NODE;

@@ -558,6 +558,48 @@ class DOMTools {
 		return false;
 	}
 
+	static public function getPreviousElementSibling(node : Node) : Null<Element> {
+
+		if (node.previousSibling == null) {
+
+			return null;
+		}
+		
+		var previousElementSibling : Node = node.previousSibling;
+		
+		while (previousElementSibling.nodeType != Node.ELEMENT_NODE) {
+
+			previousElementSibling = previousElementSibling.previousSibling;
+			
+			if (previousElementSibling == null) {
+
+				return null;
+			}
+		}
+		return Std.instance(previousElementSibling, Element);
+	}
+
+	static public function getNextElementSibling(node : Node) : Null<Element> {
+
+		if (nextSibling == null) {
+
+			return null;
+		}		
+		var nextElementSibling : Node = node.nextSibling;
+		
+		while (nextElementSibling.nodeType != Node.ELEMENT_NODE) {
+
+			nextElementSibling = nextElementSibling.nextSibling;
+			
+			if (nextElementSibling == null) {
+
+				return null;
+			}
+		}
+		return Std.instance(nextElementSibling, Element);
+	}
+
+
 	///
 	// ATTRIBUTES
 	//

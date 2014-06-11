@@ -21,12 +21,20 @@ class CharacterData extends Node {
     /**
      * [TreatNullAs=EmptyString]
      */
-    public var data (default, set) : String;
+    public var data (default, set) : String = "";
 
     /**
      * readonly
      */
     public var length (default, never) : Int;
+    /**
+     * readonly
+     */
+    public var previousElementSibling (get, null) : Null<Element>;
+    /**
+     * readonly
+     */
+    public var nextElementSibling (get, null) : Null<Element>;
 
     public function substringData(offset : Int, count : Int) : String {
 
@@ -57,6 +65,14 @@ class CharacterData extends Node {
     // GETTER / SETTER
     //
 
+    private function get_previousElementSibling() : Null<Element> {
+
+        return DOMTools.getPreviousElementSibling(this);
+    }
+    private function get_nextElementSibling() : Null<Element> {
+
+        return DOMTools.getNextElementSibling(this);
+    }
     override private function get_nodeValue() : Null<String> {
 
         return data;

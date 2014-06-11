@@ -42,13 +42,19 @@ class DomTest
     	elt4.className = "testElt";
     	this.elt5 = document.createElement("d");
     	elt5.className = "testElt2";
-    	this.elt6 = document.createElement("e");
+        this.elt6 = document.createElement("e");
+    	this.elt7 = document.createElement("e");
+        //this.text1 = document.createTextNode("Test Cocktail Text Content");
+        //this.text2 = document.createTextNode("Test Cocktail Text Content 2");
 
     	document.appendChild(elt2);
     	elt2.appendChild(elt3);
-    	elt2.appendChild(elt4);
+        elt2.appendChild(elt4);
+    	//elt2.appendChild(text2);
     	elt4.appendChild(elt5);
-    	elt4.appendChild(elt6);
+        elt4.appendChild(elt6);
+        //elt4.appendChild(text1);
+    	elt4.appendChild(elt7);
     	elt5.appendChild(elt);
     }
 
@@ -59,6 +65,9 @@ class DomTest
     var elt4 : Element;
     var elt5 : Element;
     var elt6 : Element;
+    var elt7 : Element;
+    var text1 : Text;
+    var text2 : Text;
 
     @Test
     public function testDocumentGetElementById()
@@ -84,10 +93,21 @@ class DomTest
     @Test
     public function testDocumentGetElementsByClassName()
     {
-    	var r : HTMLCollection = document.getElementsByClassName("testElt");
+        var r : HTMLCollection = document.getElementsByClassName("testElt");
 
-    	Assert.isTrue(r.length == 2);
-    	Assert.isTrue(r[0] == elt4);
-    	Assert.isTrue(r[1] == elt);
+        Assert.isTrue(r.length == 2);
+        Assert.isTrue(r[0] == elt4);
+        Assert.isTrue(r[1] == elt);
+    }
+
+    @Test
+    public function testElementSibling()
+    {
+        Assert.isTrue(elt7.previousElementSibling != null);
+        Assert.isTrue(elt7.previousElementSibling != elt5);
+    	Assert.isTrue(elt7.previousElementSibling == elt6);
+        Assert.isTrue(elt3.nextElementSibling != null);
+        Assert.isTrue(elt3.nextElementSibling != elt5);
+    	Assert.isTrue(elt3.nextElementSibling == elt4);
     }
 }
