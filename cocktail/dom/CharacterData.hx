@@ -37,13 +37,19 @@ class CharacterData extends Node {
     public var nextElementSibling (get, null) : Null<Element>;
 
     public function before(/* (Node or DOMString)... nodes */) : Void {
-
+    #if strict
+        throw "Not implemented!";
+    #end
     }
     public function after(/* (Node or DOMString)... nodes */) : Void {
-
+    #if strict
+        throw "Not implemented!";
+    #end
     }
     public function replace(/* (Node or DOMString)... nodes */) : Void {
-
+    #if strict
+        throw "Not implemented!";
+    #end
     }
     public function remove() : Void {
 

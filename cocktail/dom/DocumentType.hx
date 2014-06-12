@@ -30,13 +30,19 @@ class DocumentType extends Node {
 	public var systemId (default, null) : String;
 
     public function before(/* (Node or DOMString)... nodes */) : Void {
-
+    #if strict
+        throw "Not implemented!";
+    #end
     }
     public function after(/* (Node or DOMString)... nodes */) : Void {
-
+    #if strict
+        throw "Not implemented!";
+    #end
     }
     public function replace(/* (Node or DOMString)... nodes */) : Void {
-
+    #if strict
+        throw "Not implemented!";
+    #end
     }
     public function remove() : Void {
 
