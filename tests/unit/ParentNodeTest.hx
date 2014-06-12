@@ -21,7 +21,7 @@ import cocktail.dom.Text;
 
 import massive.munit.Assert;
 
-class DomTest
+class ParentNodeTest
 {
     public function new() { }
 
@@ -69,44 +69,20 @@ class DomTest
     var text2 : Text;
 
     @Test
-    public function testElementCreation()
+    public function testElementChildren()
     {
-        Assert.isTrue(elt != null && elt2 != null && elt3 != null && elt4 != null && elt5 != null && elt6 != null && elt7 != null);
-        Assert.isTrue(elt != elt2 && elt2 != elt3 && elt3 != elt4 && elt4 != elt5 && elt5 != elt6 && elt6 != elt7);
-    }
+        Assert.isTrue(elt.children.length == 0);
+        Assert.isTrue(elt.firstElementChild == null);
+        Assert.isTrue(elt.lastElementChild == null);
+        Assert.isTrue(elt.childElementCount == 0);
 
-    @Test
-    public function testChildNodes()
-    {
-        Assert.isTrue(elt.childNodes.length == 0);
-        Assert.isTrue(elt2.childNodes.length == 3);
-        Assert.isTrue(elt3.childNodes.length == 0);
-        Assert.isTrue(elt4.childNodes.length == 4);
-        Assert.isTrue(elt5.childNodes.length == 1);
-        Assert.isTrue(elt6.childNodes.length == 0);
-        Assert.isTrue(elt7.childNodes.length == 0);
-    }
+        Assert.isTrue(elt4.children.length == 3);
+        Assert.isTrue(elt4.firstElementChild == elt5);
+        Assert.isTrue(elt4.lastElementChild == elt7);
+        Assert.isTrue(elt4.childElementCount == 3);
 
-    @Test
-    public function testDocumentGetElementsByTagName()
-    {
-    	var r : HTMLCollection = document.getElementsByTagName("a");
-    	var r2 : HTMLCollection = document.getElementsByTagName("d");
-
-    	Assert.isTrue(r.length == 1);
-    	Assert.isTrue(r2.length == 2);
-    	Assert.isTrue(r[0] == elt);
-    	Assert.isTrue(r2[0] == elt4);
-    	Assert.isTrue(r2[1] == elt5);
-    }
-
-    @Test
-    public function testDocumentGetElementsByClassName()
-    {
-        var r : HTMLCollection = document.getElementsByClassName("testElt");
-
-        Assert.isTrue(r.length == 2);
-        Assert.isTrue(r[0] == elt4);
-        Assert.isTrue(r[1] == elt);
+        elt7.remove();
+        Assert.isTrue(elt4.lastElementChild == elt6);
+        Assert.isTrue(elt4.childElementCount == 2);
     }
 }

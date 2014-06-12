@@ -288,46 +288,11 @@ class Node extends EventTarget {
     }
     private function get_previousSibling() : Null<Node> {
 
-        if (parentNode == null) {
-
-            return null;
-        }
-        if (parentNode.firstChild != this) {
-
-            var length:Int = parentNode.childNodes.length;
-            
-            for (i in 0...length) {
-
-                if (parentNode.childNodes[i] == this) {
-
-                    return parentNode.childNodes[i - 1];
-                }
-            }
-        }
-        return null;
+        return DOMTools.previousSibling(this);
     }
     private function get_nextSibling() : Null<Node> {
 
-        //if the node is not attached, it has no siblings
-        if (parentNode == null) {
-
-            return null;
-        }
-        if (parentNode.lastChild != this) {
-            //loop in all child to find this node and return the next one
-            var parentChildNodes : NodeList = parentNode.childNodes;
-            var length : Int = parentChildNodes.length;
-            
-            for (i in 0...length) {
-
-                if (parentChildNodes[i] == this) {
-
-                    return parentChildNodes[i + 1];
-                }
-            }
-        }
-        //if the node is the last of its parent, it has no next sibling
-        return null;
+        return DOMTools.nextSibling(this);
     }
     private function get_nodeValue() : Null<String> {
 

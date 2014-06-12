@@ -436,64 +436,65 @@ class DOMTools {
 		// FIXME If suppress observers flag is unset, run node is removed for node.
 	}
 	/**
-	 * Tells if a node has a previous sibling ( optionaly of a given type )
+	 * Tells if a node has a previous sibling (optionaly of a given type)
 	 */
-	static public function isPreceding( node : Node, ?typeFilter : Int ) : Bool
-	{
-		return ( previousSibling( node, typeFilter ) != null );
+	static public function isPreceding(node : Node, ?typeFilter : Int) : Bool {
+
+		return (previousSibling(node, typeFilter) != null);
 	}
 	/**
-	 * Returns node's previous sibling ( optionaly filter by type ).
+	 * Returns node's previous sibling (optionaly filter by type).
 	 */
-	static public function previousSibling( node : Node, ?typeFilter : Int = -1 ) : Null<Node>
-	{
-		if ( node.parentNode == null || node.parentNode.childNodes.length <= 1 )
-		{
+	static public function previousSibling(node : Node, ? typeFilter : Int = -1) : Null<Node> {
+
+		if (node.parentNode == null || node.parentNode.childNodes.length <= 1) {
+
 			return null;
 		}
 		var ps : Null<Node> = null;
-		for ( cn in node.parentNode.childNodes )
-		{
-			if ( cn == node )
-			{
-				if ( typeFilter != -1 && ps.nodeType != typeFilter )
-				{
+
+		for (cn in node.parentNode.childNodes) {
+
+			if (cn == node) {
+
+				if (ps == null || typeFilter != -1 && ps.nodeType != typeFilter) {
+
 					return null;
 				}
 				return ps;
 			}
-			ps = cn;
+			if (typeFilter != -1 && cn.nodeType == typeFilter) {
+
+				ps = cn;
+			}
 		}
 		return null;
 	}
 	/**
-	 * Tells if a node has a next sibling ( optionaly of a given type )
+	 * Tells if a node has a next sibling (optionaly of a given type)
 	 */
-	static public function isFollowing( node : Node, ?typeFilter : Int ) : Bool
-	{
-		return ( nextSibling( node, typeFilter ) != null );
+	static public function isFollowing(node : Node, ? typeFilter : Int) : Bool {
+
+		return (nextSibling( node, typeFilter ) != null);
 	}
 	/**
-	 * Returns node's next sibling ( optionaly filter by type ).
+	 * Returns node's next sibling (optionaly filter by type).
 	 */
-	static public function nextSibling( node : Node, ?typeFilter : Int = -1 ) : Null<Node>
-	{
-		if ( node.parentNode == null || node.parentNode.childNodes.length <= 1 )
-		{
+	static public function nextSibling(node : Node, ? typeFilter : Int = -1) : Null<Node> {
+
+		if (node.parentNode == null || node.parentNode.childNodes.length <= 1) {
+
 			return null;
 		}
 		var f : Bool = false;
-		for ( cn in node.parentNode.childNodes )
-		{
-			if ( f )
-			{
-				if ( typeFilter != -1 && cn.nodeType != typeFilter )
-				{
-					return null;
-				}
+
+		for (cn in node.parentNode.childNodes) {
+
+			if (f && (typeFilter == -1 || cn.nodeType == typeFilter)) {
+
 				return cn;
 			}
-			f = (cn == node);
+			f = f || (cn == node);
 		}
 		return null;
 	}
@@ -578,45 +579,26 @@ class DOMTools {
 		return false;
 	}
 
-	static public function getPreviousElementSibling(node : Node) : Null<Element> { // TODO optimize to use previousSibling directly
+	static public function previousElementSibling(node : Node) : Null<Element> {
 
-		if (node.previousSibling == null) {
+		var previousElementSibling : Null<Node> = previousSibling(node, Node.ELEMENT_NODE);
+//trace("previousElementSibling= "+previousElementSibling);
+		if (previousElementSibling != null) {
 
-			return null;
+			return Std.instance(previousElementSibling, Element);
 		}
-		
-		var previousElementSibling : Node = node.previousSibling;
-		
-		while (previousElementSibling.nodeType != Node.ELEMENT_NODE) {
-
-			previousElementSibling = previousElementSibling.previousSibling;
-			
-			if (previousElementSibling == null) {
-
-				return null;
-			}
-		}
-		return Std.instance(previousElementSibling, Element);
+		return null;
 	}
 
-	static public function getNextElementSibling(node : Node) : Null<Element> { // TODO optimize to use previousSibling directly
+	static public function nextElementSibling(node : Node) : Null<Element> {
 
-		if (nextSibling == null) {
+		var nextElementSibling : Null<Node> = nextSibling(node, Node.ELEMENT_NODE);
 
-			return null;
-		}		
-		var nextElementSibling : Node = node.nextSibling;
-		
-		while (nextElementSibling.nodeType != Node.ELEMENT_NODE) {
+		if (nextElementSibling != null) {
 
-			nextElementSibling = nextElementSibling.nextSibling;
-			
-			if (nextElementSibling == null) {
-
-				return null;
-			}
+			return Std.instance(nextElementSibling, Element);
 		}
-		return Std.instance(nextElementSibling, Element);
+		return null;
 	}
 
 

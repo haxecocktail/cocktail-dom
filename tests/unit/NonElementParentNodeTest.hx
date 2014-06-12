@@ -21,7 +21,7 @@ import cocktail.dom.Text;
 
 import massive.munit.Assert;
 
-class InterfaceChildNodeTest
+class NonElementParentNodeTest
 {
     public function new() { }
 
@@ -40,7 +40,8 @@ class InterfaceChildNodeTest
     	this.elt4 = document.createElement("d");
     	elt4.className = "testElt";
     	this.elt5 = document.createElement("d");
-    	elt5.className = "testElt2";
+        elt5.className = "testElt2";
+    	elt5.id = "id2";
         this.elt6 = document.createElement("e");
     	this.elt7 = document.createElement("e");
         this.text1 = document.createTextNode("Test Cocktail Text Content");
@@ -68,12 +69,20 @@ class InterfaceChildNodeTest
     var text1 : Text;
     var text2 : Text;
 
+
     @Test
-    public function testRemove()
+    public function testDocumentGetElementById()
     {
-        Assert.isTrue(elt4.childNodes.length == 4 && elt6.parentNode == elt4);
-        elt6.remove();
-        Assert.isTrue(elt4.childNodes.length == 3);
-        Assert.isNull(elt6.parentNode);
+        var r : Null<Element> = document.getElementById("elt1");
+
+        Assert.isTrue(r == elt);
+
+        r = document.getElementById("id2");
+
+        Assert.isTrue(r == elt5);
+
+        r = document.getElementById("id3");
+
+        Assert.isNull(r);
     }
 }

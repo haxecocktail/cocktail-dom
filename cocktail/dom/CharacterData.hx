@@ -90,11 +90,11 @@ class CharacterData extends Node {
 
     private function get_previousElementSibling() : Null<Element> {
 
-        return DOMTools.getPreviousElementSibling(this);
+        return DOMTools.previousElementSibling(this);
     }
     private function get_nextElementSibling() : Null<Element> {
 
-        return DOMTools.getNextElementSibling(this);
+        return DOMTools.nextElementSibling(this);
     }
     override private function get_nodeValue() : Null<String> {
 
