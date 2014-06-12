@@ -29,6 +29,23 @@ class DocumentType extends Node {
 	public var publicId (default, null) : String;
 	public var systemId (default, null) : String;
 
+    public function before(/* (Node or DOMString)... nodes */) : Void {
+
+    }
+    public function after(/* (Node or DOMString)... nodes */) : Void {
+
+    }
+    public function replace(/* (Node or DOMString)... nodes */) : Void {
+
+    }
+    public function remove() : Void {
+
+        if (parentNode != null) {
+
+            DOMTools.remove(this, parentNode);
+        }
+    }
+
 	///
 	// GETTER / SETTER
 	//

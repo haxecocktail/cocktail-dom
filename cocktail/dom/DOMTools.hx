@@ -403,17 +403,37 @@ class DOMTools {
 		return child;
 	}
 	/**
-	 * @see https://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#concept-node-remove
-	 * TODO? manage suppress observers flag
-	 * TODO? manage ranges
+	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-node-remove
 	 */
-	static public function remove( node : Node, parent : Node ) : Void
-	{
-		parent.childNodes.remove(node);
-		
-		node.parentNode = null; // added to w3c algo, check if this isn't described elsewhere
+	static public function remove(node : Node, parent : Node) : Void {
 
-		//TODO? manage "node is removed" hook: https://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#node-is-removed
+		// Let index be node's index.
+
+		// FIXME For each range whose start node is a descendant of node, set its start to (parent, index).
+
+		// FIXME For each range whose end node is a descendant of node, set its end to (parent, index).
+
+		// FIXME For each range whose start node is parent and start offset is greater than index, decrease 
+		// its start offset by one.
+
+		// FIXME For each range whose end node is parent and end offset is greater than index, decrease its 
+		// end offset by one.
+
+		// FIXME If suppress observers flag is unset, queue a mutation record of "childList" for parent with
+		//  removedNodes a list solely containing node, nextSibling node's next sibling, and previousSibling 
+		// node's previous sibling.
+
+		// FIXME For each ancestor ancestor of node, if ancestor has any registered observers whose options's subtree 
+		// is true, then for each such registered observer registered, append a transient registered observer whose 
+		// observer and options are identical to those of registered and source which is registered to node's list 
+		// of registered observers.
+
+		// Remove node from its parent.
+		parent.childNodes.remove(node);
+
+		node.parentNode = null; // added to w3c algo
+
+		// FIXME If suppress observers flag is unset, run node is removed for node.
 	}
 	/**
 	 * Tells if a node has a previous sibling ( optionaly of a given type )

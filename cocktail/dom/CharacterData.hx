@@ -36,6 +36,23 @@ class CharacterData extends Node {
      */
     public var nextElementSibling (get, null) : Null<Element>;
 
+    public function before(/* (Node or DOMString)... nodes */) : Void {
+
+    }
+    public function after(/* (Node or DOMString)... nodes */) : Void {
+
+    }
+    public function replace(/* (Node or DOMString)... nodes */) : Void {
+
+    }
+    public function remove() : Void {
+
+        if (parentNode != null) {
+
+            DOMTools.remove(this, parentNode);
+        }
+    }
+
     public function substringData(offset : Int, count : Int) : String {
 
         return DOMTools.substringData(this, offset, count);

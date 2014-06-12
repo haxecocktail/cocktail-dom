@@ -141,7 +141,7 @@ class DomTest
         Assert.isTrue(elt.firstElementChild == null);
         Assert.isTrue(elt.lastElementChild == null);
         Assert.isTrue(elt.childElementCount == 0);
-trace(elt4.children.length);
+
         Assert.isTrue(elt4.children.length == 3);
         Assert.isTrue(elt4.firstElementChild == elt5);
         Assert.isTrue(elt4.lastElementChild == elt7);
