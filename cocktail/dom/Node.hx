@@ -138,47 +138,7 @@ class Node extends EventTarget {
      */
     public function isEqualNode(? node : Null<Node>) : Bool {
 
-        if (node == null) return false;
-
-        if (nodeType != node.nodeType) return false;
-
-        switch (nodeType) {
-
-            case DOCUMENT_TYPE_NODE:
-            #if strict
-                throw "Not implemented!";
-            #end
-
-            case ELEMENT_NODE:
-            #if strict
-                throw "Not implemented!";
-            #end
-
-            //If A is an element, each attribute in its attribute list has an attribute with the same namespace, local name, and value in B's attribute list.
-
-            case PROCESSING_INSTRUCTION_NODE:
-            #if strict
-                throw "Not implemented!";
-            #end
-
-            case TEXT_NODE, COMMENT_NODE:
-            #if strict
-                throw "Not implemented!";
-            #end
-
-            default: // -
-        }
-
-        if (childNodes.length != node.childNodes.length) return false;
-
-        for (c in 0...childNodes.length) {
-
-            if (!childNodes[c].isEqualNode(node.childNodes[c])) {
-
-                return false;
-            }
-        }
-        return true;
+        return DOMTools.isEqualNode(this, node);
     }
 
     /**

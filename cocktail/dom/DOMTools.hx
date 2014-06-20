@@ -564,6 +564,93 @@ class DOMTools {
 		return null;
 	}
 
+    /**
+     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-node-equals
+     */
+    static public function isEqualNode(nodeA : Node, ? nodeB : Null<Node>) : Bool {
+
+        if (nodeB == null) return false;
+
+        if (nodeA.nodeType != nodeB.nodeType) return false;
+
+        switch (nodeA.nodeType) {
+
+            case Node.DOCUMENT_TYPE_NODE:
+
+            	var doctypeA : DocumentType = Std.instance(nodeA, DocumentType);
+            	var doctypeB : DocumentType = Std.instance(nodeB, DocumentType);
+
+            	if (doctypeA.name != doctypeB.name || doctypeA.publicId != doctypeA.publicId || 
+            		doctypeA.systemId != doctypeA.systemId) {
+
+            		return false;
+            	}
+
+            case Node.ELEMENT_NODE:
+
+            	var eltA : Element = Std.instance(nodeA, Element);
+            	var eltB : Element = Std.instance(nodeB, Element);
+
+            	if (eltA.namespaceURI != eltB.namespaceURI || eltA.prefix != eltB.prefix || 
+            		eltA.localName != eltB.localName || eltA.attributes.length != eltB.attributes.length) {
+
+            		return false;
+            	}
+            	for (ia in 0...eltA.attributes.length) {
+
+            		var found : Bool = false;
+            		var ib : Int = 0;
+
+            		while (ib < eltB.attributes.length && !found) {
+
+            			if (eltA.attributes[ia].namespaceURI == eltB.attributes[ib].namespaceURI &&
+            				eltA.attributes[ia].localName == eltB.attributes[ib].localName &&
+            				eltA.attributes[ia].value == eltB.attributes[ib].value) {
+
+            				found = true;
+            			}
+            		}
+            		if (!found) {
+
+            			return false;
+            		}
+            	}
+
+            case Node.PROCESSING_INSTRUCTION_NODE:
+
+            	var piA : ProcessingInstruction = Std.instance(nodeA, ProcessingInstruction);
+            	var piB : ProcessingInstruction = Std.instance(nodeB, ProcessingInstruction);
+
+            	if (piA.target != piB.target || piA.data != piB.data) {
+
+            		return false;
+            	}
+
+            case Node.TEXT_NODE, Node.COMMENT_NODE:
+
+            	var cdA : CharacterData = Std.instance(nodeA, CharacterData);
+            	var cdB : CharacterData = Std.instance(nodeB, CharacterData);
+
+            	if (cdA.data != cdB.data) {
+
+            		return false;
+            	}
+
+            default: // -
+        }
+
+        if (nodeA.childNodes.length != nodeB.childNodes.length) return false;
+
+        for (c in 0...nodeA.childNodes.length) {
+
+            if (!nodeA.childNodes[c].isEqualNode(nodeB.childNodes[c])) {
+
+                return false;
+            }
+        }
+        return true;
+    }
+
 	///
 	// TREES
 	//
