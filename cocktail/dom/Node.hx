@@ -155,10 +155,8 @@ class Node extends EventTarget {
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-contains
      */
     public function contains(? other : Null<Node>) : Bool {
-    #if strict
-        throw "Not implemented!";
-    #end
-        return false;
+
+        return DOMTools.isIncluseAncestor(this, other);
     }
 
     /**

@@ -78,15 +78,10 @@ class NonDocumentTypeChildNodeTest
         Assert.isNotNull(elt3.nextElementSibling);
         Assert.isTrue(elt3.nextElementSibling != elt5);
         Assert.isTrue(elt3.nextElementSibling == elt4);
-        trace("0");
         Assert.isNull(elt2.nextElementSibling);
-        trace("1");
         Assert.isNull(elt7.nextElementSibling);
-        trace("2");
         Assert.isNull(elt2.previousElementSibling);
-        trace("3");
         Assert.isNull(elt3.previousElementSibling);
-        trace("4");
         Assert.isNull(elt5.previousElementSibling);
     }
 }

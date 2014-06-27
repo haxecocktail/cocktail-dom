@@ -105,4 +105,13 @@ class NodeTest
         Assert.isFalse(text1.isEqualNode(text2));
         Assert.isTrue(text1.isEqualNode(text3));
     }
+
+    @Test
+    public function testContains()
+    {
+        Assert.isTrue(elt2.contains(elt2));
+        Assert.isTrue(elt2.contains(elt4));
+        Assert.isTrue(elt2.contains(pi3));
+        Assert.isFalse(elt4.contains(elt3));
+    }
 }
