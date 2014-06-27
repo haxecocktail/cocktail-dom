@@ -498,6 +498,40 @@ class DOMTools {
 		}
 		return null;
 	}
+
+	static public function isDescendant(a : Node, b : Node) : Bool {
+
+		if (b.childNodes.indexOf(a) > -1) return true;
+
+		for (c in b.childNodes) {
+
+			if (isDescendant(a, c)) return true;
+		}
+		return false;
+	}
+
+	static public function previousElementSibling(node : Node) : Null<Element> {
+
+		var previousElementSibling : Null<Node> = previousSibling(node, Node.ELEMENT_NODE);
+//trace("previousElementSibling= "+previousElementSibling);
+		if (previousElementSibling != null) {
+
+			return Std.instance(previousElementSibling, Element);
+		}
+		return null;
+	}
+
+	static public function nextElementSibling(node : Node) : Null<Element> {
+
+		var nextElementSibling : Null<Node> = nextSibling(node, Node.ELEMENT_NODE);
+
+		if (nextElementSibling != null) {
+
+			return Std.instance(nextElementSibling, Element);
+		}
+		return null;
+	}
+
 	/**
 	 * Tells if a node has a child ( optionaly of a given type )
 	 */
@@ -650,43 +684,6 @@ class DOMTools {
         }
         return true;
     }
-
-	///
-	// TREES
-	//
-
-	static public function isDescendant(a : Node, b : Node) : Bool {
-
-		if (b.childNodes.indexOf(a) > -1) return true;
-
-		for (c in b.childNodes) {
-
-			if (isDescendant(a, c)) return true;
-		}
-		return false;
-	}
-
-	static public function previousElementSibling(node : Node) : Null<Element> {
-
-		var previousElementSibling : Null<Node> = previousSibling(node, Node.ELEMENT_NODE);
-//trace("previousElementSibling= "+previousElementSibling);
-		if (previousElementSibling != null) {
-
-			return Std.instance(previousElementSibling, Element);
-		}
-		return null;
-	}
-
-	static public function nextElementSibling(node : Node) : Null<Element> {
-
-		var nextElementSibling : Null<Node> = nextSibling(node, Node.ELEMENT_NODE);
-
-		if (nextElementSibling != null) {
-
-			return Std.instance(nextElementSibling, Element);
-		}
-		return null;
-	}
 
 
 	///
@@ -957,6 +954,95 @@ class DOMTools {
 		// FIXME
 		// For each range whose end node is node and end offset is greater than offset plus count, increase 
 		// its end offset by the number of code units in data, then decrease it by count.
+	}
+
+	/**
+	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-normalize
+	 */
+	static public function normalize(contextObject : Node) : Void {
+
+		var ci : Int = 0;
+
+		while (ci < contextObject.childNodes.length) {
+
+			if (contextObject.childNodes[ci].nodeType == Node.TEXT_NODE) {
+
+				var node : Text = Std.instance(contextObject.childNodes[ci], Text);
+
+				if (node.length == 0) {
+
+					contextObject.removeChild(node);
+				
+				} else {
+
+					var ctn : NodeList = contiguousNodes(node, function(n : Node) { return n.nodeType == Node.TEXT_NODE; });
+					
+					var data : String = "";
+					var length : Int = Std.instance(node, Text).data.length;
+
+					for (ci in 1...ctn.length) {
+
+						data += Std.instance(ctn[ci], Text).data;
+
+						contextObject.removeChild(ctn[ci]);
+					}
+					replaceData(node, length, 0, data);
+
+					ci++;
+				}
+			
+			} else {
+
+				contextObject.childNodes[ci].normalize();
+
+				ci++;
+			}
+		}
+		/**
+		TODO FIXME manage Ranges:
+
+		While current node is a Text node:
+
+			For each range whose start node is current node, add length to its start offset and set its start node to node.
+
+			For each range whose end node is current node, add length to its end offset and set its end node to node.
+
+			For each range whose start node is current node's parent and start offset is current node's index, set its start node to node and its start offset to length.
+
+			For each range whose end node is current node's parent and end offset is current node's index, set its end node to node and its end offset to length.
+
+			Add current node's length attribute value to length.
+
+			Set current node to its next sibling.
+		**/
+	}
+
+	/**
+	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#contiguous-text-nodes
+	 */
+	static public function contiguousNodes(node : Node, filter : Node -> Bool) : NodeList {
+
+		var ret : NodeList = [node];
+
+		if (node.parentNode == null) {
+
+			throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR);
+		}
+		var s : Null<Node> = node.previousSibling;
+		while (s != null && filter(s)) {
+
+			ret.unshift(s);
+
+			s = s.previousSibling;
+		}
+		s = node.nextSibling;
+		while (s != null && filter(s)) {
+
+			ret.push(s);
+
+			s = s.nextSibling;
+		}
+		return ret;
 	}
 
 	///

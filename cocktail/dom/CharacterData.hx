@@ -26,7 +26,7 @@ class CharacterData extends Node {
     /**
      * readonly
      */
-    public var length (default, never) : Int;
+    public var length (get, never) : Int;
     /**
      * readonly
      */
@@ -127,6 +127,6 @@ class CharacterData extends Node {
 
     private function get_length() : Int {
 
-        return data.length;
+        return this.data.length;
     }
 }

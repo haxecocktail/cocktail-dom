@@ -46,6 +46,9 @@ class NodeTest
         this.text1 = document.createTextNode("Test Cocktail Text Content");
         this.text2 = document.createTextNode("Test Cocktail Text Content 2");
         this.text3 = document.createTextNode("Test Cocktail Text Content");
+        this.text4 = document.createTextNode("");
+        this.text5 = document.createTextNode("* str 5 *");
+        this.text6 = document.createTextNode("* str 6 *");
         this.pi1 = document.createProcessingInstruction("target", "data");
         this.pi2 = document.createProcessingInstruction("target1", "data");
         this.pi3 = document.createProcessingInstruction("target", "data");
@@ -58,14 +61,20 @@ class NodeTest
     	elt2.appendChild(elt3);
         elt2.appendChild(elt4);
     	elt2.appendChild(text2);
-    	elt4.appendChild(elt5);
+
+        elt4.appendChild(elt5);
+    	elt4.appendChild(text4);
         elt4.appendChild(elt6);
         elt4.appendChild(text1);
+        elt4.appendChild(text5);
     	elt4.appendChild(elt7);
+    	elt4.appendChild(pi2);
+        elt4.appendChild(text6);
+        elt4.appendChild(text3);
+
         elt5.appendChild(elt);
         elt5.appendChild(pi3);
         elt2.appendChild(pi1);
-    	elt4.appendChild(pi2);
     }
 
     var document : Document;
@@ -85,6 +94,9 @@ class NodeTest
     var text1 : Text;
     var text2 : Text;
     var text3 : Text;
+    var text4 : Text;
+    var text5 : Text;
+    var text6 : Text;
 
     @Test
     public function testIsEqualNode()
@@ -113,5 +125,22 @@ class NodeTest
         Assert.isTrue(elt2.contains(elt4));
         Assert.isTrue(elt2.contains(pi3));
         Assert.isFalse(elt4.contains(elt3));
+    }
+
+    @Test
+    public function testNormalize()
+    {
+        Assert.isTrue(elt4.childNodes.length == 9);
+
+        elt4.normalize();
+
+        Assert.isTrue(elt4.childNodes.length == 6);
+        Assert.isFalse(elt4.contains(text4));
+        Assert.isTrue(elt4.contains(text1));
+        Assert.isFalse(elt4.contains(text5));
+        Assert.isTrue(elt4.contains(text6));
+
+        Assert.isTrue(text1.data == "Test Cocktail Text Content* str 5 *");
+        Assert.isTrue(text6.data == "* str 6 *Test Cocktail Text Content");
     }
 }

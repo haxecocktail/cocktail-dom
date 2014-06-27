@@ -120,9 +120,8 @@ class Node extends EventTarget {
      * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-normalize
      */
     public function normalize() : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
+
+        DOMTools.normalize(this);
     }
 
     /**
