@@ -16,27 +16,29 @@ package cocktail.dom;
  */
 class DOMTokenList {
 
-    public function new(values : Array<String>, element : Element, attributeLocalName : Null<String>) {
+    public function new(element : Element, attributeLocalName : Null<String>) {
 
-        this.values = values;
         this.element = element;
         this.attributeLocalName = attributeLocalName;
     }
 
-    private var values : Array<String>;
     private var element : Element;
     private var attributeLocalName : Null<String>;
 
     public var stringifier (get, never) : String;
 
+    @:isVar private var values (get, set) : Array<String>;
+
     @:arrayAccess
     public function item(index : Int) : Null<String> {
 
-    	if (index < 0 || index >= values.length) {
+        var set : Array<String> = values;
+
+    	if (index < 0 || index >= set.length) {
 
     		return null;
     	}
-    	return values[index];
+    	return set[index];
     }
 
     /**
@@ -66,6 +68,8 @@ class DOMTokenList {
 		var tokens : Array<Null<String>> = [t1, t2, t3, t4, t5, t6, t7, t8, t9];
 		var ti : Int = 0;
 
+        var set : Array<String> = values;
+
 		while (tokens[ti] != null) {
 
 			if (tokens[ti] == "") {
@@ -76,13 +80,13 @@ class DOMTokenList {
 
 	    		throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
 	    	}
-	    	if (values.indexOf(tokens[ti]) == -1) {
+	    	if (set.indexOf(tokens[ti]) == -1) {
 
-	    		values.push(tokens[ti]);
+	    		set.push(tokens[ti]);
 	    	}
 	    	ti++;
 		}
-		update();
+		update(set);
 	}
 
     /**
@@ -96,6 +100,8 @@ class DOMTokenList {
 		var tokens : Array<Null<String>> = [t1, t2, t3, t4, t5, t6, t7, t8, t9];
 		var ti : Int = 0;
 
+        var set : Array<String> = values;
+
 		while (tokens[ti] != null) {
 
 			if (tokens[ti] == "") {
@@ -106,10 +112,10 @@ class DOMTokenList {
 
 	    		throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
 	    	}
-	    	values.remove(tokens[ti]);
+	    	set.remove(tokens[ti]);
 	    	ti++;
 		}
-		update();
+		update(set);
 	}
 
     /**
@@ -125,13 +131,15 @@ class DOMTokenList {
 
     		throw new DOMException(DOMException.INVALID_CHARACTER_ERR);
     	}
-    	if (values.indexOf(token) > -1) {
+        var set : Array<String> = values;
+
+    	if (set.indexOf(token) > -1) {
 
     		if (force == null || force == false) {
 
-    			values.remove(token);
+    			set.remove(token);
 
-    			update();
+    			update(set);
 
     			return false;
 
@@ -148,9 +156,9 @@ class DOMTokenList {
     		
     		} else {
 
-    			values.push(token);
+    			set.push(token);
 
-    			update();
+    			update(set);
 
     			return true;
     		}
@@ -161,21 +169,29 @@ class DOMTokenList {
 	// INTERNALS
 	//
 
-	private function update() : Void {
+	private function update(set : Array<String>) : Void {
 
 		if (attributeLocalName == null) { // DOMSettableTokenList case
 
 			return;
 		}
-		element.setAttribute(attributeLocalName, DOMTools.serializeOrderedSet(values));
+		element.setAttribute(attributeLocalName, DOMTools.serializeOrderedSet(set));
 	}
 	
 	///
 	// GETTER / SETTER
 	//
 
-	private function get_stringifier() : String {
+    private function get_stringifier() : String {
 
-		return DOMTools.serializeOrderedSet(values);
+        return DOMTools.serializeOrderedSet(values);
+    }
+    private function get_values() : Array<String> {
+
+        return DOMTools.parseOrderedSet(element.getAttribute(attributeLocalName));
+    }
+	private function set_values(v : Array<String>) : Array<String> { // should not be used
+
+        return values;
 	}
 }

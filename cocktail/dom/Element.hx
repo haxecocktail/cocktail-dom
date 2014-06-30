@@ -20,8 +20,8 @@ class Element extends Node {
 
         super();
 
-        this.classList = new DOMTokenList([], this, DOMConstants.CLASS_ATTRIBUTE_NAME);
         this.attributes = [];
+        this.classList = new DOMTokenList(this, DOMConstants.CLASS_ATTRIBUTE_NAME);
 
         this.localName = localName;
         this.namespaceURI = namespaceURI;
@@ -58,8 +58,8 @@ class Element extends Node {
      * concept of the DOM and allows for only one per element, given by an 
      * id attribute.
      */
-    @:isVar public var id (get, set) : String;
-    @:isVar public var className (get, set) : String;
+    public var id (get, set) : String;
+    public var className (get, set) : String;
     /**
      * readonly
      * [SameObject]
@@ -231,7 +231,7 @@ class Element extends Node {
         return false;
     }
 
-    public function matches(selectors : String) : Bool {
+    public function matches(selectors : String) : Bool { /* this one probably needs cocktail-css-selector */
     #if strict
         throw "Not implemented!";
     #end
@@ -338,23 +338,29 @@ class Element extends Node {
     }
     private function get_id() : String {
 
-        return id != null ? id : "";
+        var v : Null<String> = getAttribute(DOMConstants.ID_ATTRIBUTE_NAME);
+
+        return v != null ? v : "";
     }
     private function set_id(v : String) : String {
 
-        id = v != null ? v : "";
+        if (v != "") {
 
-        return id;
+            setAttribute(DOMConstants.ID_ATTRIBUTE_NAME, v);
+        }
+        return getAttribute(DOMConstants.ID_ATTRIBUTE_NAME);
     }
     private function get_className() : String {
 
-        return className != null ? className : "";
+        var v : Null<String> = getAttribute(DOMConstants.CLASS_ATTRIBUTE_NAME);
+
+        return v != null ? v : "";
     }
     private function set_className(v : String) : String {
 
-        className = v != null ? v : "";
+        setAttribute(DOMConstants.CLASS_ATTRIBUTE_NAME, v);
 
-        return className;
+        return getAttribute(DOMConstants.CLASS_ATTRIBUTE_NAME);
     }
 
     ///

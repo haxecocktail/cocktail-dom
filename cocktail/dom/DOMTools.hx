@@ -643,6 +643,7 @@ class DOMTools {
 
             				found = true;
             			}
+            			ib++;
             		}
             		if (!found) {
 

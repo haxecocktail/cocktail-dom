@@ -18,7 +18,7 @@ class DOMSettableTokenList extends DOMTokenList {
 
     public function new(a : Array<String>, element : Element) {
 
-        super(a, element, null);
+        super(element, null);
     }
 
     public var value (get, set) : String;
@@ -36,5 +36,15 @@ class DOMSettableTokenList extends DOMTokenList {
     	values = DOMTools.parseOrderedSet(v);
 
     	return v;
+    }
+    override private function get_values() : Array<String> {
+
+        return values;
+    }
+    override private function set_values(v : Array<String>) : Array<String> {
+
+        values = v;
+
+        return values;
     }
 }
