@@ -42,7 +42,8 @@ class ParentNodeTest
     	this.elt5 = document.createElement("d");
     	elt5.className = "testElt2";
         this.elt6 = document.createElement("e");
-    	this.elt7 = document.createElement("e");
+        this.elt7 = document.createElement("e");
+    	this.elt8 = document.createElement("e");
         this.text1 = document.createTextNode("Test Cocktail Text Content");
         this.text2 = document.createTextNode("Test Cocktail Text Content 2");
 
@@ -54,7 +55,8 @@ class ParentNodeTest
         elt4.appendChild(elt6);
         elt4.appendChild(text1);
     	elt4.appendChild(elt7);
-    	elt5.appendChild(elt);
+        elt5.appendChild(elt);
+    	elt5.appendChild(elt8);
     }
 
     var document : Document;
@@ -65,6 +67,7 @@ class ParentNodeTest
     var elt5 : Element;
     var elt6 : Element;
     var elt7 : Element;
+    var elt8 : Element;
     var text1 : Text;
     var text2 : Text;
 
@@ -86,8 +89,21 @@ class ParentNodeTest
         Assert.isTrue(elt4.childElementCount == 2);
     }
 /*
-    TODO TEST:
-    * querySelector
-    * querySelectorAll
+    @Test
+    public function testQuerySelector()
+    {
+        Assert.isTrue(elt2.querySelector('d') == elt4);
+        Assert.isNull(elt4.querySelector('b'));
+        Assert.isTrue(elt2.querySelector('a') == elt);
+    }
+
+    @Test
+    public function testQuerySelectorAll()
+    {
+        Assert.isTrue(elt2.querySelectorAll('d').length == 2);
+        Assert.isTrue(elt2.querySelectorAll('e').length == 3);
+        Assert.isTrue(elt2.querySelectorAll('c').length == 1);
+        Assert.isTrue(elt6.querySelectorAll('a').length == 0);
+    }
 */
 }

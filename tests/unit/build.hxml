@@ -3,6 +3,7 @@
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
+-lib cocktail-css-selector
 -cp ../..
 
 -swf-version 11
@@ -15,6 +16,7 @@
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
+-lib cocktail-css-selector
 -cp ../..
 
 -swf-version 8
@@ -27,6 +29,7 @@
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
+-lib cocktail-css-selector
 -cp ../..
 
 -js bin/js_test.js
@@ -38,6 +41,7 @@
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
+-lib cocktail-css-selector
 -cp ../..
 
 -neko bin/neko_test.n
@@ -49,6 +53,7 @@
 -lib munit
 -lib hamcrest
 -lib cocktail-dom-event
+-lib cocktail-css-selector
 -cp ../..
 
 #-D HXCPP_M64
