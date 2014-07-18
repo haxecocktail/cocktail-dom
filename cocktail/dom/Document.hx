@@ -22,7 +22,7 @@ import cocktail.event.WheelEvent;
 import cocktail.event.PopStateEvent;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-document
+ * @see http://www.w3.org/TR/dom/#interface-document
  */
 class Document extends Node {
 
@@ -109,8 +109,21 @@ class Document extends Node {
         return DOMTools.listOfElementWithClassNames(classNames, this);
     }
 
+    public function querySelector(selectors : String) : Null<Element> {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return null;
+    }
+    public function querySelectorAll(selectors : String) : NodeList {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return null;
+    }
+
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-document-createelement
+     * @see http://www.w3.org/TR/dom/#dom-document-createelement
      * [NewObject]
      */
     public function createElement(localName : String) : Element {
@@ -213,7 +226,7 @@ class Document extends Node {
      * [NewObject]
      */
     public function createEvent(eventInterface : String) : Event {
-        // TODO http://www.w3.org/TR/2014/CR-dom-20140508/#dom-document-createevent
+        // TODO http://www.w3.org/TR/dom/#dom-document-createevent
         // should this be in cocktail-dom-event or here ?
     #if strict
         throw "Not implemented!";

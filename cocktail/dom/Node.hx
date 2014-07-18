@@ -14,7 +14,7 @@ package cocktail.dom;
 import cocktail.event.EventTarget;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-node
+ * @see http://www.w3.org/TR/dom/#interface-node
  */
 class Node extends EventTarget {
 
@@ -117,7 +117,7 @@ class Node extends EventTarget {
     }
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-normalize
+     * @see http://www.w3.org/TR/dom/#dom-node-normalize
      */
     public function normalize() : Void {
 
@@ -125,7 +125,7 @@ class Node extends EventTarget {
     }
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-node-clone
+     * @see http://www.w3.org/TR/dom/#concept-node-clone
      */
     public function cloneNode(? deep : Bool = false) : Node {
 
@@ -133,7 +133,7 @@ class Node extends EventTarget {
     }
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-node-equals
+     * @see http://www.w3.org/TR/dom/#concept-node-equals
      */
     public function isEqualNode(? node : Null<Node>) : Bool {
 
@@ -141,7 +141,7 @@ class Node extends EventTarget {
     }
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-comparedocumentposition
+     * @see http://www.w3.org/TR/dom/#dom-node-comparedocumentposition
      */
     public function compareDocumentPosition(other : Node) : Int {
     #if strict
@@ -151,7 +151,7 @@ class Node extends EventTarget {
     }
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-contains
+     * @see http://www.w3.org/TR/dom/#dom-node-contains
      */
     public function contains(? other : Null<Node>) : Bool {
 
@@ -159,7 +159,7 @@ class Node extends EventTarget {
     }
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-lookupprefix
+     * @see http://www.w3.org/TR/dom/#dom-node-lookupprefix
      */
     public function lookupPrefix(? namespace : Null<String>) : String {
     #if strict
@@ -168,7 +168,7 @@ class Node extends EventTarget {
         return "";
     }
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-lookupnamespaceuri
+     * @see http://www.w3.org/TR/dom/#dom-node-lookupnamespaceuri
      */
     public function lookupNamespaceURI(? prefix : Null<String>) : String {
     #if strict
@@ -177,7 +177,7 @@ class Node extends EventTarget {
         return "";
     }
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-isdefaultnamespace
+     * @see http://www.w3.org/TR/dom/#dom-node-isdefaultnamespace
      */
     public function isDefaultNamespace(? namespace : Null<String>) : Bool {
     #if strict

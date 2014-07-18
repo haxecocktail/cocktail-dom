@@ -12,7 +12,7 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-documentfragment
+ * @see http://www.w3.org/TR/dom/#interface-documentfragment
  */
 class DocumentFragment extends Node {
     
@@ -36,6 +36,19 @@ class DocumentFragment extends Node {
     public function getElementById(elementId : String) : Null<Element> {
 
         return DOMTools.getElementById(elementId, this);
+    }
+
+    public function querySelector(selectors : String) : Null<Element> {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return null;
+    }
+    public function querySelectorAll(selectors : String) : NodeList {
+    #if strict
+        throw "Not implemented!";
+    #end
+        return null;
     }
 
 	///

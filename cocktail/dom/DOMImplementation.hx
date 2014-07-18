@@ -14,7 +14,7 @@ package cocktail.dom;
 /**
  * User agents must create a DOMImplementation object whenever a document 
  * is created and associate it with that document.
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#domimplementation
+ * @see http://www.w3.org/TR/dom/#domimplementation
  */
 class DOMImplementation {
 
@@ -57,7 +57,7 @@ class DOMImplementation {
 	 */
 	public function createHTMLDocument(? title : Null<String>) : Document {
 
-		// TODO http://www.w3.org/TR/2014/CR-dom-20140508/#dom-domimplementation-createhtmldocument
+		// TODO http://www.w3.org/TR/dom/#dom-domimplementation-createhtmldocument
 	#if strict
         throw "Not implemented!";
     #end

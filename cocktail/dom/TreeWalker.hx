@@ -12,7 +12,7 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#treewalker
+ * @see http://www.w3.org/TR/dom/#treewalker
  */
 class TreeWalker {
 

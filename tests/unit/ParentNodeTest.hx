@@ -85,4 +85,9 @@ class ParentNodeTest
         Assert.isTrue(elt4.lastElementChild == elt6);
         Assert.isTrue(elt4.childElementCount == 2);
     }
+/*
+    TODO TEST:
+    * querySelector
+    * querySelectorAll
+*/
 }

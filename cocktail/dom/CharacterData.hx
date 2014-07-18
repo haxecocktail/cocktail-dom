@@ -12,7 +12,7 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-characterdata
+ * @see http://www.w3.org/TR/dom/#interface-characterdata
  * Note: CharacterData is an abstract interface and does not exist as node. 
  * It is used by Text, Comment, and ProcessingInstruction nodes.
  */
@@ -36,21 +36,6 @@ class CharacterData extends Node {
      */
     public var nextElementSibling (get, null) : Null<Element>;
 
-    public function before(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
-    public function after(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
-    public function replace(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
     public function remove() : Void {
 
         if (parentNode != null) {

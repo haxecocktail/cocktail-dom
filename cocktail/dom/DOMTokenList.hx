@@ -12,7 +12,7 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#domtokenlist
+ * @see http://www.w3.org/TR/dom/#domtokenlist
  */
 class DOMTokenList {
 
@@ -42,7 +42,7 @@ class DOMTokenList {
     }
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-domtokenlist-contains
+     * @see http://www.w3.org/TR/dom/#dom-domtokenlist-contains
      */
     public function contains(token : String) : Bool {
 
@@ -58,7 +58,7 @@ class DOMTokenList {
     }
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-domtokenlist-add
+     * @see http://www.w3.org/TR/dom/#dom-domtokenlist-add
      * Should be a variable number of arguments but Haxe doesn't allow that.
      */
 	public function add(t1 : String, ? t2 : Null<String>, ? t3 : Null<String>, ? t4 : Null<String>, 
@@ -90,7 +90,7 @@ class DOMTokenList {
 	}
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-domtokenlist-remove
+     * @see http://www.w3.org/TR/dom/#dom-domtokenlist-remove
      * Should be a variable number of arguments but Haxe doesn't allow that.
      */
 	public function remove(t1 : String, ? t2 : Null<String>, ? t3 : Null<String>, ? t4 : Null<String>, 
@@ -119,7 +119,7 @@ class DOMTokenList {
 	}
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-domtokenlist-toggle
+     * @see http://www.w3.org/TR/dom/#dom-domtokenlist-toggle
      */
 	public function toggle(token : String, ? force : Null<Bool> = null) : Bool {
 

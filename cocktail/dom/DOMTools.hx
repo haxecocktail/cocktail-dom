@@ -18,7 +18,7 @@ package cocktail.dom;
 class DOMTools {
 
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-node-clone
+	 * @see http://www.w3.org/TR/dom/#concept-node-clone
 	 */
 	static public function clone(node : Node, ? document : Null<Document>, ? cloneChildren : Bool = false) : Node {
 
@@ -366,7 +366,7 @@ class DOMTools {
 		// TODO 9. If suppress observers flag is unset, for each node in nodes, in tree order run node is inserted.
 	}
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-node-adopt
+	 * @see http://www.w3.org/TR/dom/#concept-node-adopt
 	 */
 	static public function adopt( node : Node, ownerDocument : Document ) : Node
 	{
@@ -403,7 +403,7 @@ class DOMTools {
 		return child;
 	}
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-node-remove
+	 * @see http://www.w3.org/TR/dom/#concept-node-remove
 	 */
 	static public function remove(node : Node, parent : Node) : Void {
 
@@ -599,7 +599,7 @@ class DOMTools {
 	}
 
     /**
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-node-equals
+     * @see http://www.w3.org/TR/dom/#concept-node-equals
      */
     static public function isEqualNode(nodeA : Node, ? nodeB : Null<Node>) : Bool {
 
@@ -692,7 +692,7 @@ class DOMTools {
 	//
 
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-element-attributes-change
+	 * @see http://www.w3.org/TR/dom/#concept-element-attributes-change
 	 */
 	static public function changeAttr(attribute : Attr, element : Element, value : String) : Void {
 		
@@ -704,7 +704,7 @@ class DOMTools {
 		// FIXME hooks for "an attribute" is set and "an attribute is changed".
 	}
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-element-attributes-append
+	 * @see http://www.w3.org/TR/dom/#concept-element-attributes-append
 	 */
 	static public function appendAttr(attribute : Attr, element : Element) : Void {
 
@@ -716,7 +716,7 @@ class DOMTools {
 		// FIXME hooks for "an attribute is set" and "an attribute is added".
 	}
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-element-attributes-remove
+	 * @see http://www.w3.org/TR/dom/#concept-element-attributes-remove
 	 */
 	static public function removeAttr(attribute : Attr, element : Element) : Void {
 
@@ -728,7 +728,7 @@ class DOMTools {
 		// FIXME hook for "an attribute is removed".
 	}
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-parentnode-children
+	 * @see http://www.w3.org/TR/dom/#dom-parentnode-children
 	 */
 	static public function children(node : Node) : HTMLCollection {
 
@@ -744,7 +744,7 @@ class DOMTools {
 		return ret;
 	}
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-parentnode-firstelementchild
+	 * @see http://www.w3.org/TR/dom/#dom-parentnode-firstelementchild
 	 */
 	static public function firstElementChild(node : Node) : Null<Element> {
 
@@ -758,7 +758,7 @@ class DOMTools {
 		return null;
 	}
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-parentnode-lastelementchild
+	 * @see http://www.w3.org/TR/dom/#dom-parentnode-lastelementchild
 	 */
 	static public function lastElementChild(node : Node) : Null<Element> {
 
@@ -774,7 +774,7 @@ class DOMTools {
 		return ret;
     }
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-parentnode-childelementcount
+	 * @see http://www.w3.org/TR/dom/#dom-parentnode-childelementcount
 	 */
 	static public function childElementCount(node : Node) : Int {
 
@@ -786,7 +786,7 @@ class DOMTools {
 	//
 
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-nonelementparentnode
+	 * @see http://www.w3.org/TR/dom/#interface-nonelementparentnode
 	 */
 	static public function getElementById(id : String, root : Node) : Null<Element> {
 
@@ -810,7 +810,7 @@ class DOMTools {
 	}
 
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-getelementsbyclassname
+	 * @see http://www.w3.org/TR/dom/#concept-getelementsbyclassname
 	 * 
 	 * TODO When invoked with the same argument, the same HTMLCollection object may be returned 
 	 * as returned by an earlier call.
@@ -847,7 +847,7 @@ class DOMTools {
 	}
 
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-getelementsbytagname
+	 * @see http://www.w3.org/TR/dom/#concept-getelementsbytagname
 	 * 
 	 * TODO When invoked with the same argument, the same HTMLCollection object may be returned 
 	 * as returned by an earlier call.
@@ -900,7 +900,7 @@ class DOMTools {
 	//
 
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-cd-substring
+	 * @see http://www.w3.org/TR/dom/#concept-cd-substring
 	 */
 	static public function substringData(node : CharacterData, offset : Int, count : Int) : String {
 
@@ -918,7 +918,7 @@ class DOMTools {
 	}
 	
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-cd-replace
+	 * @see http://www.w3.org/TR/dom/#concept-cd-replace
 	 */
 	static public function replaceData(node : CharacterData, offset : Int, count : Int, data : String) : Void {
 
@@ -958,7 +958,7 @@ class DOMTools {
 	}
 
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-node-normalize
+	 * @see http://www.w3.org/TR/dom/#dom-node-normalize
 	 */
 	static public function normalize(contextObject : Node) : Void {
 
@@ -1019,7 +1019,7 @@ class DOMTools {
 	}
 
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#contiguous-text-nodes
+	 * @see http://www.w3.org/TR/dom/#contiguous-text-nodes
 	 */
 	static public function contiguousNodes(node : Node, filter : Node -> Bool) : NodeList {
 
@@ -1051,7 +1051,7 @@ class DOMTools {
 	//
 
 	/**
-	 * @ see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-ordered-set-serializer
+	 * @ see http://www.w3.org/TR/dom/#concept-ordered-set-serializer
 	 */
 	inline static public function serializeOrderedSet(input : Array<String>) : String {
 
@@ -1059,7 +1059,7 @@ class DOMTools {
 	}
 
 	/**
-	 * @see http://www.w3.org/TR/2014/CR-dom-20140508/#concept-ordered-set-parser
+	 * @see http://www.w3.org/TR/dom/#concept-ordered-set-parser
 	 */
 	static public function parseOrderedSet(input : String) : Array<String> {
 

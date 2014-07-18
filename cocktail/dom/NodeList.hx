@@ -12,7 +12,7 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#nodelist
+ * @see http://www.w3.org/TR/dom/#nodelist
  */
 @:forward(iterator, length, remove, copy, push, indexOf, lastIndexOf, insert, unshift)
 abstract NodeList(Array<Node>) from Array<Node> to Array<Node> {

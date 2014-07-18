@@ -167,4 +167,8 @@ class ElementTest
         Assert.isTrue(elt.classList.contains("testElt6"));
         Assert.isTrue(elt.className == "testElt4 testElt6");
     }
+
+    /* Add tests for :
+    attributes, children, firstElementChild, lastElementChild, childElementCount
+    */
 }

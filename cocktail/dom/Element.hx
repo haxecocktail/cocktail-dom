@@ -12,7 +12,7 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-element
+ * @see http://www.w3.org/TR/dom/#interface-element
  */
 class Element extends Node {
 
@@ -68,7 +68,7 @@ class Element extends Node {
     /**
      * FIXME readonly
      * [SameObject]
-     * @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-element-attributes
+     * @see http://www.w3.org/TR/dom/#dom-element-attributes
      */
     public var attributes (default, null) : Array<Attr>;
 
@@ -89,38 +89,12 @@ class Element extends Node {
      */
     public var childElementCount (get, never) : Int;
 
-    public function before(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
-    public function after(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
-    public function replace(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
     public function remove() : Void {
 
         if (parentNode != null) {
 
             DOMTools.remove(this, parentNode);
         }
-    }
-
-    public function prepend(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
-    public function append(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
     }
 
     public function querySelector(selectors : String) : Null<Element> {

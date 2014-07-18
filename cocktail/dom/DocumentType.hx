@@ -12,7 +12,7 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-documenttype
+ * @see http://www.w3.org/TR/dom/#interface-documenttype
  */
 class DocumentType extends Node {
 
@@ -29,21 +29,6 @@ class DocumentType extends Node {
 	public var publicId (default, null) : String;
 	public var systemId (default, null) : String;
 
-    public function before(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
-    public function after(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
-    public function replace(/* (Node or DOMString)... nodes */) : Void {
-    #if strict
-        throw "Not implemented!";
-    #end
-    }
     public function remove() : Void {
 
         if (parentNode != null) {

@@ -12,7 +12,7 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#htmlcollection
+ * @see http://www.w3.org/TR/dom/#htmlcollection
  */
 @:forward(iterator, length, remove, copy, push, indexOf, lastIndexOf, insert, concat)
 abstract HTMLCollection(Array<Element>) from Array<Element> to Array<Element> {

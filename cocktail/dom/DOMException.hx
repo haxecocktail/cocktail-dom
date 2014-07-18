@@ -74,7 +74,7 @@ class DOMException
      */
     static public inline var INVALID_MODIFICATION_ERR : Int = 13;
     /**
-     * The operation is not allowed by Namespaces in XML. [XMLNS](http://www.w3.org/TR/2014/CR-dom-20140508/#refsXMLNS)
+     * The operation is not allowed by Namespaces in XML. [XMLNS](http://www.w3.org/TR/dom/#refsXMLNS)
      */
     static public inline var NAMESPACE_ERR : Int = 14;
     /**

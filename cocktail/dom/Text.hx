@@ -12,7 +12,7 @@
 package cocktail.dom;
 
 /**
- * @see http://www.w3.org/TR/2014/CR-dom-20140508/#interface-text
+ * @see http://www.w3.org/TR/dom/#interface-text
  */
 class Text extends CharacterData {        
 
@@ -35,7 +35,7 @@ class Text extends CharacterData {
     #if strict
         throw "Not implemented!";
     #end
-        // TODO @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-text-splittext
+        // TODO @see http://www.w3.org/TR/dom/#dom-text-splittext
         return null;
     }
 
@@ -55,7 +55,7 @@ class Text extends CharacterData {
     #if strict
         throw "Not implemented!";
     #end
-        // TODO @see http://www.w3.org/TR/2014/CR-dom-20140508/#dom-text-wholetext
+        // TODO @see http://www.w3.org/TR/dom/#dom-text-wholetext
         return "";
     }
 
