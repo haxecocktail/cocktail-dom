@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/haxecocktail/cocktail-dom.svg?branch=master)](https://travis-ci.org/haxecocktail/cocktail-dom)
 ##Cocktail DOM
 
 Cross platform Implementation of the [w3c DOM specifications](http://www.w3.org/TR/dom/).
