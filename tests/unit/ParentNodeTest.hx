@@ -88,11 +88,12 @@ class ParentNodeTest
         Assert.isTrue(elt4.lastElementChild == elt6);
         Assert.isTrue(elt4.childElementCount == 2);
     }
-/*
+
     @Test
     public function testQuerySelector()
     {
         Assert.isTrue(elt2.querySelector('d') == elt4);
+        Assert.isTrue(elt2.querySelector('.testElt') == elt4);
         Assert.isNull(elt4.querySelector('b'));
         Assert.isTrue(elt2.querySelector('a') == elt);
     }
@@ -105,5 +106,5 @@ class ParentNodeTest
         Assert.isTrue(elt2.querySelectorAll('c').length == 1);
         Assert.isTrue(elt6.querySelectorAll('a').length == 0);
     }
-*/
+
 }

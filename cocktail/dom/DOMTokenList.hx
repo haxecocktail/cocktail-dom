@@ -188,7 +188,13 @@ class DOMTokenList {
     }
     private function get_values() : Array<String> {
 
-        return DOMTools.parseOrderedSet(element.getAttribute(attributeLocalName));
+        var attrVal : Null<String> = element.getAttribute(attributeLocalName);
+
+        if (attrVal == null) {
+
+            attrVal = "";
+        }
+        return DOMTools.parseOrderedSet(attrVal);
     }
 	private function set_values(v : Array<String>) : Array<String> { // should not be used
 

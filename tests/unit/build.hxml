@@ -5,6 +5,7 @@
 -lib cocktail-dom-event
 -lib cocktail-css-selector
 -cp ../..
+-debug
 
 -swf-version 11
 -swf bin/as3_test.swf
@@ -18,6 +19,7 @@
 -lib cocktail-dom-event
 -lib cocktail-css-selector
 -cp ../..
+-debug
 
 -swf-version 8
 -swf bin/as2_test.swf
@@ -31,6 +33,7 @@
 -lib cocktail-dom-event
 -lib cocktail-css-selector
 -cp ../..
+-debug
 
 -js bin/js_test.js
 
@@ -43,6 +46,7 @@
 -lib cocktail-dom-event
 -lib cocktail-css-selector
 -cp ../..
+-debug
 
 -neko bin/neko_test.n
 
@@ -55,8 +59,7 @@
 -lib cocktail-dom-event
 -lib cocktail-css-selector
 -cp ../..
+-debug
 
 #-D HXCPP_M64
 -cpp bin/cpp_test
-
-
