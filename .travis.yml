@@ -12,6 +12,7 @@ before_script:
   - haxelib install hxcpp
   - haxelib install munit
   - haxelib git cocktail-dom-event https://github.com/haxecocktail/cocktail-dom-event
+  - haxelib git cocktail-css-selector https://github.com/haxecocktail/cocktail-css-selector
   - mkdir build
   - mkdir report
 
