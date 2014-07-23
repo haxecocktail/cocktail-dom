@@ -201,11 +201,9 @@ class Element extends Node {
         return false;
     }
 
-    public function matches(selectors : String) : Bool { /* this one probably needs cocktail-css-selector */
-    #if strict
-        throw "Not implemented!";
-    #end
-        return false;
+    public function matches(selectors : String) : Bool {
+    
+        return QuerySelectorTools.matches(this, selectors);
     }
 
     public function getElementsByTagName(localName : String) : HTMLCollection {

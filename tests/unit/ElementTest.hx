@@ -168,6 +168,26 @@ class ElementTest
         Assert.isTrue(elt.className == "testElt4 testElt6");
     }
 
+    @Test
+    public function testMatches()
+    {
+        Assert.isTrue(elt2.matches('b'));
+        Assert.isFalse(elt2.matches('a'));
+        Assert.isFalse(elt2.matches('.a'));
+
+        Assert.isTrue(elt3.matches('c'));
+        Assert.isTrue(elt3.matches('.testElt2'));
+        Assert.isTrue(elt3.matches('.class1'));
+        Assert.isTrue(elt3.matches('.classn'));
+        Assert.isTrue(elt3.matches('.testElt2.class1'));
+        Assert.isTrue(elt3.matches('.class1.classn'));
+        Assert.isTrue(elt3.matches('.testElt2.classn'));
+        Assert.isTrue(elt3.matches('.testElt2.class1.classn'));
+        Assert.isFalse(elt3.matches('.testElt2.class1.class2'));
+        Assert.isFalse(elt3.matches('.class2'));
+    }
+
+
     /* Add tests for :
     attributes, children, firstElementChild, lastElementChild, childElementCount
     */

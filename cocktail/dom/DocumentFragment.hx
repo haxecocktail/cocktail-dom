@@ -39,16 +39,12 @@ class DocumentFragment extends Node {
     }
 
     public function querySelector(selectors : String) : Null<Element> {
-    #if strict
-        throw "Not implemented!";
-    #end
-        return null;
+    
+        return QuerySelectorTools.querySelector(this, selectors);
     }
     public function querySelectorAll(selectors : String) : NodeList {
-    #if strict
-        throw "Not implemented!";
-    #end
-        return null;
+
+        return QuerySelectorTools.querySelectorAll(this, selectors);
     }
 
 	///

@@ -47,6 +47,11 @@ class QuerySelectorTools {
 		return doQuerySelector(context, s, true);
     }
 
+    static public function matches(context : Node, selectors : String) : Bool {
+
+    	return querySelectorAll(context, selectors).indexOf(context) != -1;
+    }
+
 
 	/**
 	 * Do get the node matching the selectors, starting from node and checking
