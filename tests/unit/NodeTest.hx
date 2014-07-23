@@ -25,6 +25,24 @@ class NodeTest
 {
     public function new() { }
 
+    /**
+     * b
+     *   c { class: testElt2 } 
+     *   d { class: testElt }
+     *      d { class: testElt2 }
+     *        a { id: elt1, class: testElt }
+     *        [data]
+     *      ""
+     *      e {}
+     *      "Test Cocktail Text Content"
+     *      "* str 5 *"
+     *      e {}
+     *      [data]
+     *      "* str 6 *"
+     *      "Test Cocktail Text Content"
+     *   "Test Cocktail Text Content 2"
+     *   [data]
+     */
     @Before
     public function setup():Void
     {
@@ -57,6 +75,9 @@ class NodeTest
         this.dt2 = document.implementation.createDocumentType("str10", "str20", "str30");
         this.dt3 = document.implementation.createDocumentType("str1", "str2", "str3");
 
+        this.c1 = document.createComment("my comment");
+        this.df1 = document.createDocumentFragment();
+
     	document.appendChild(elt2);
     	elt2.appendChild(elt3);
         elt2.appendChild(elt4);
@@ -77,7 +98,9 @@ class NodeTest
         elt2.appendChild(pi1);
     }
 
+    var c1 : Comment;
     var document : Document;
+    var df1 : DocumentFragment;
     var dt1 : DocumentType;
     var dt2 : DocumentType;
     var dt3 : DocumentType;
@@ -97,6 +120,30 @@ class NodeTest
     var text4 : Text;
     var text5 : Text;
     var text6 : Text;
+
+    @Test
+    public function testNodeType()
+    {
+        Assert.isTrue(Node.ELEMENT_NODE == 1);
+        Assert.isTrue(Node.ATTRIBUTE_NODE == 2);
+        Assert.isTrue(Node.TEXT_NODE == 3);
+        Assert.isTrue(Node.CDATA_SECTION_NODE == 4);
+        Assert.isTrue(Node.ENTITY_REFERENCE_NODE == 5);
+        Assert.isTrue(Node.ENTITY_NODE == 6);
+        Assert.isTrue(Node.PROCESSING_INSTRUCTION_NODE == 7);
+        Assert.isTrue(Node.COMMENT_NODE == 8);
+        Assert.isTrue(Node.DOCUMENT_NODE == 9);
+        Assert.isTrue(Node.DOCUMENT_TYPE_NODE == 10);
+        Assert.isTrue(Node.DOCUMENT_FRAGMENT_NODE == 11);
+
+        Assert.isTrue(elt2.nodeType == Node.ELEMENT_NODE);
+        Assert.isTrue(text1.nodeType == Node.TEXT_NODE);
+        Assert.isTrue(pi1.nodeType == Node.PROCESSING_INSTRUCTION_NODE);
+        Assert.isTrue(c1.nodeType == Node.COMMENT_NODE);
+        Assert.isTrue(document.nodeType == Node.DOCUMENT_NODE);
+        Assert.isTrue(dt1.nodeType == Node.DOCUMENT_TYPE_NODE);
+        Assert.isTrue(df1.nodeType == Node.DOCUMENT_FRAGMENT_NODE);
+    }
 
     @Test
     public function testIsEqualNode()
